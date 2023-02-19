@@ -1,0 +1,40 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Lesson {
+  id: ID!
+  name: String!
+  startDate: String!
+  endDate: String!
+}
+
+type desireType {
+  occupation: [String!]
+  employmentType: String!
+  annualSalary: String
+}
+
+type User {
+  _id: String!
+  name: String!
+  age: String!
+  birthDay: String!
+  phone: String!
+  desire: desireType!
+}
+
+type SuccessType {
+  success: String!
+}
+
+type Query {
+  lesson: Lesson!
+  getUserById(id: String!): User!
+}
+
+type Mutation {
+  createLesson: Lesson!
+  createUser(name: String!, age: String!, birthDay: String!, phone: String!): User!
+  deleteUser(id: String!): SuccessType
+}
