@@ -1,20 +1,14 @@
-import { Field, ObjectType } from '@nestjs/graphql';
+import { Field, ID, ObjectType } from '@nestjs/graphql';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-@ObjectType()
-export class desireType {
-  @Field(() => [String])
-  occupation: string[];
-  @Field()
-  employmentType: string;
-  @Field({ nullable: true })
-  annualSalary: string;
-}
 
 @Schema()
 @ObjectType('Job')
 export class JobEntity {
+  @Field(() => ID)
+  id: string;
+  @Prop()
   @Field()
-  _id: string;
+  companyId: string;
   @Prop()
   @Field()
   title: string;
@@ -37,13 +31,13 @@ export class JobEntity {
   @Field()
   description: string;
   @Prop()
-  @Field((type) => [String])
+  @Field(() => [String])
   responsibilities: string[];
   @Prop()
-  @Field((type) => [String])
+  @Field(() => [String])
   qualification: string[];
   @Prop()
-  @Field((type) => [String])
+  @Field(() => [String])
   skillsRequired: string[];
   @Prop()
   @Field()

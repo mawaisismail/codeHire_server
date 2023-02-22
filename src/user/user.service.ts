@@ -24,13 +24,11 @@ export class UserService {
     }
   }
   async createUser(userArgs: UserArgs) {
-    console.log('userArgs', userArgs);
     try {
       const user = await this.user.create({
         ...userArgs,
       });
       if (user) {
-        console.log(user);
         return user;
       }
       throw new UnprocessableEntityException();

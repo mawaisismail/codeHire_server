@@ -23,7 +23,7 @@ type experiencesType {
 }
 
 type User {
-  _id: String!
+  id: String!
   name: String!
   currentOccupation: String!
   age: String!
@@ -44,13 +44,31 @@ type SuccessType {
   success: String!
 }
 
+type Job {
+  id: ID!
+  companyId: String!
+  title: String!
+  coverImage: String!
+  experience: String!
+  employmeeType: String!
+  position: String!
+  salary: String!
+  description: String!
+  responsibilities: [String!]!
+  qualification: [String!]!
+  skillsRequired: [String!]!
+  freeWords: String!
+}
+
 type Query {
   getUserById(id: String!): User!
+  getJobs: [Job!]!
 }
 
 type Mutation {
   createUser(userArgs: UserArgs!): User!
   deleteUser(id: String!): SuccessType
+  createJob: Job!
 }
 
 input UserArgs {

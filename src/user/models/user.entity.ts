@@ -3,33 +3,44 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 @ObjectType()
 export class desireType {
   @Field(() => [String])
+  @Prop()
   occupation: string[];
+  @Prop()
   @Field()
   employmentType: string;
+  @Prop()
   @Field({ nullable: true })
   annualSalary: string;
 }
 
 @ObjectType()
 export class educationType {
+  @Prop()
   @Field()
   degree: string;
+  @Prop()
   @Field()
   institute: string;
+  @Prop()
   @Field()
   year: string;
+  @Prop()
   @Field()
   info: string;
 }
 
 @ObjectType()
 export class experiencesType {
+  @Prop()
   @Field()
   position: string;
+  @Prop()
   @Field()
   institute: string;
+  @Prop()
   @Field()
   year: string;
+  @Prop()
   @Field()
   info: string;
 }
@@ -37,7 +48,7 @@ export class experiencesType {
 @ObjectType('User')
 export class UserEntity {
   @Field()
-  _id: string;
+  id: string;
   @Prop()
   @Field()
   name: string;
