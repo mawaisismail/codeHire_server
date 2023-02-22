@@ -1,12 +1,14 @@
-import { Field, ArgsType } from '@nestjs/graphql';
-@ArgsType()
+import { Field, InputType } from '@nestjs/graphql';
+@InputType()
 export class DesireArgs {
+  @Field(() => [String], { nullable: true })
+  occupation: string[];
   @Field()
-  job: string;
-  @Field()
-  occupation: string;
+  employmentType: string;
+  @Field({ nullable: true })
+  annualSalary: string;
 }
-@ArgsType()
+@InputType()
 export class UserArgs {
   @Field()
   name: string;
@@ -16,6 +18,6 @@ export class UserArgs {
   birthDay: string;
   @Field()
   phone: string;
-  // @Field(() => DesireArgs)
-  // desire: DesireArgs;
+  @Field(() => DesireArgs)
+  desire: DesireArgs;
 }

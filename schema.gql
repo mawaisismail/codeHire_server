@@ -2,13 +2,6 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type Lesson {
-  id: ID!
-  name: String!
-  startDate: String!
-  endDate: String!
-}
-
 type desireType {
   occupation: [String!]
   employmentType: String!
@@ -29,12 +22,24 @@ type SuccessType {
 }
 
 type Query {
-  lesson: Lesson!
   getUserById(id: String!): User!
 }
 
 type Mutation {
-  createLesson: Lesson!
-  createUser(name: String!, age: String!, birthDay: String!, phone: String!): User!
+  createUser(userArgs: UserArgs!): User!
   deleteUser(id: String!): SuccessType
+}
+
+input UserArgs {
+  name: String!
+  age: String!
+  birthDay: String!
+  phone: String!
+  desire: DesireArgs!
+}
+
+input DesireArgs {
+  occupation: [String!]
+  employmentType: String!
+  annualSalary: String
 }

@@ -8,7 +8,7 @@ import { SuccessType } from '../common/types/successType';
 export class UserResolver {
   constructor(private userService: UserService) {}
   @Mutation(() => UserType)
-  async createUser(@Args() userArgs: UserArgs) {
+  async createUser(@Args('userArgs') userArgs: UserArgs) {
     return await this.userService.createUser(userArgs);
   }
   @Query(() => UserType)
