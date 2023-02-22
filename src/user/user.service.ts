@@ -5,12 +5,14 @@ import {
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { UserType } from './types/user.type';
+import { UserEntity } from './types/user.entity';
 import { UserArgs } from './dto/user.args';
 
 @Injectable()
 export class UserService {
-  constructor(@InjectModel('user') private user: Model<UserType>) {}
+  constructor(
+    @InjectModel(UserEntity.name) private readonly user: Model<UserEntity>,
+  ) {}
 
   async getUserById(id: string) {
     try {
@@ -22,11 +24,15 @@ export class UserService {
     }
   }
   async createUser(userArgs: UserArgs) {
+    console.log('userArgs', userArgs);
     try {
       const user = await this.user.create({
         ...userArgs,
       });
-      if (user) return user;
+      if (user) {
+        console.log(user);
+        return user;
+      }
       throw new UnprocessableEntityException();
     } catch (e) {
       throw new UnprocessableEntityException(e.message);

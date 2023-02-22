@@ -3,18 +3,41 @@
 # ------------------------------------------------------
 
 type desireType {
-  occupation: [String!]
+  occupation: [String!]!
   employmentType: String!
   annualSalary: String
+}
+
+type educationType {
+  degree: String!
+  institute: String!
+  year: String!
+  info: String!
+}
+
+type experiencesType {
+  position: String!
+  institute: String!
+  year: String!
+  info: String!
 }
 
 type User {
   _id: String!
   name: String!
+  currentOccupation: String!
   age: String!
   birthDay: String!
   phone: String!
+  documents: [String!]!
+  email: String!
+  location: String!
+  about: String!
   desire: desireType!
+  education: [educationType!]!
+  experiences: [experiencesType!]!
+  skills: [String!]!
+  languages: [String!]!
 }
 
 type SuccessType {
