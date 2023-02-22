@@ -46,7 +46,7 @@ type SuccessType {
 
 type Job {
   id: ID!
-  companyId: String!
+  company: User!
   title: String!
   coverImage: String!
   experience: String!

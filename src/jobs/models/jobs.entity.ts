@@ -1,5 +1,6 @@
 import { Field, ID, ObjectType } from '@nestjs/graphql';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { UserEntity } from '../../user/models/user.entity';
 
 @Schema()
 @ObjectType('Job')
@@ -7,8 +8,8 @@ export class JobEntity {
   @Field(() => ID)
   id: string;
   @Prop()
-  @Field()
-  companyId: string;
+  @Field(() => UserEntity)
+  company: UserEntity;
   @Prop()
   @Field()
   title: string;
