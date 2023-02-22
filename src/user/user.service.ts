@@ -5,7 +5,7 @@ import {
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { UserEntity } from './types/user.entity';
+import { UserEntity } from './models/user.entity';
 import { UserArgs } from './dto/user.args';
 
 @Injectable()
