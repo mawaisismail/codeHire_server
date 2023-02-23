@@ -47,6 +47,7 @@ type SuccessType {
 type Job {
   id: ID!
   company: User!
+  companyID: String!
   title: String!
   coverImage: String!
   experience: String!
@@ -68,7 +69,7 @@ type Query {
 type Mutation {
   createUser(userArgs: UserArgs!): User!
   deleteUser(id: String!): SuccessType
-  createJob: Job!
+  createJob(jobInput: JobInput!): Job
 }
 
 input UserArgs {
@@ -83,4 +84,19 @@ input DesireArgs {
   occupation: [String!]
   employmentType: String!
   annualSalary: String
+}
+
+input JobInput {
+  companyID: String!
+  title: String
+  coverImage: String
+  experience: String
+  employmeeType: String
+  position: String
+  salary: String
+  description: String
+  responsibilities: [String!]
+  qualification: [String!]
+  skillsRequired: [String!]
+  freeWords: String
 }

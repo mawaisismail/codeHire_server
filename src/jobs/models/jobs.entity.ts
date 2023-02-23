@@ -12,6 +12,9 @@ export class JobEntity {
   company: UserEntity;
   @Prop()
   @Field()
+  companyID: string;
+  @Prop()
+  @Field()
   title: string;
   @Prop()
   @Field()
