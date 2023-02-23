@@ -8,43 +8,43 @@ export class JobEntity {
   @Field(() => ID)
   id: string;
   @Prop()
-  @Field(() => UserEntity)
+  @Field(() => UserEntity, { nullable: true })
   company: UserEntity;
   @Prop()
   @Field()
   companyID: string;
   @Prop()
-  @Field()
+  @Field({ nullable: true })
   title: string;
   @Prop()
-  @Field()
+  @Field({ nullable: true })
   coverImage: string;
   @Prop()
-  @Field()
+  @Field({ nullable: true })
   experience: string;
   @Prop()
-  @Field()
+  @Field({ nullable: true })
   employmeeType: string;
   @Prop()
-  @Field()
+  @Field({ nullable: true })
   position: string;
   @Prop()
-  @Field()
+  @Field({ nullable: true })
   salary: string;
   @Prop()
-  @Field()
+  @Field({ nullable: true })
   description: string;
   @Prop()
-  @Field(() => [String])
+  @Field(() => [String], { nullable: true })
   responsibilities: string[];
   @Prop()
-  @Field(() => [String])
+  @Field(() => [String], { nullable: true })
   qualification: string[];
   @Prop()
-  @Field(() => [String])
+  @Field(() => [String], { nullable: true })
   skillsRequired: string[];
   @Prop()
-  @Field()
+  @Field({ nullable: true })
   freeWords: string;
 }
 

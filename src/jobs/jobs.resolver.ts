@@ -31,6 +31,6 @@ export class JobsResolver {
   @ResolveField()
   async company(@Parent() jobEntity: JobEntity) {
     const { companyID } = jobEntity;
-    return this.userService.getUserById(companyID);
+    return this.userService.getUserById(companyID, true);
   }
 }

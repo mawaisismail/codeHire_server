@@ -14,10 +14,11 @@ export class UserService {
     @InjectModel(UserEntity.name) private readonly user: Model<UserEntity>,
   ) {}
 
-  async getUserById(id: string) {
+  async getUserById(id: string, isForJob = false) {
     try {
       const data = await this.user.findById(id);
       if (data) return data;
+      if (isForJob) return null;
       throw new NotFoundException('User Does Not Exist');
     } catch (e) {
       throw new UnprocessableEntityException(e.message);

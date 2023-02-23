@@ -46,19 +46,19 @@ type SuccessType {
 
 type Job {
   id: ID!
-  company: User!
+  company: User
   companyID: String!
-  title: String!
-  coverImage: String!
-  experience: String!
-  employmeeType: String!
-  position: String!
-  salary: String!
-  description: String!
-  responsibilities: [String!]!
-  qualification: [String!]!
-  skillsRequired: [String!]!
-  freeWords: String!
+  title: String
+  coverImage: String
+  experience: String
+  employmeeType: String
+  position: String
+  salary: String
+  description: String
+  responsibilities: [String!]
+  qualification: [String!]
+  skillsRequired: [String!]
+  freeWords: String
 }
 
 type Query {
