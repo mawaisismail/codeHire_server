@@ -18,7 +18,7 @@ export class UserResolver {
   async getUserById(@Args('id') id: string) {
     return await this.userService.getUserById(id);
   }
-
+  @UseGuards(GqlAuthGuard)
   @Mutation(() => SuccessType, { nullable: true })
   async deleteUser(@Args('id') id: string) {
     return await this.userService.deleteUser(id);

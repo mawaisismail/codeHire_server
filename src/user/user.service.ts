@@ -8,6 +8,7 @@ import { Model } from 'mongoose';
 import { UserEntity } from './models/user.entity';
 import { UserArgs } from './dto/user.args';
 import { JwtService } from '@nestjs/jwt';
+import { ITokenPayload, UserType } from './interfaces/tokenPayload';
 
 @Injectable()
 export class UserService {
@@ -26,15 +27,21 @@ export class UserService {
       throw new UnprocessableEntityException(e.message);
     }
   }
-  getToken() {
-    return this.jwtService.sign({ name: 'Awais' });
+  getToken(payload: ITokenPayload) {
+    return this.jwtService.sign(payload);
   }
   async createUser(userArgs: UserArgs) {
     try {
-      const user = await this.user.create({
+      const user: UserEntity = await this.user.create({
         ...userArgs,
       });
       if (user) {
+        user.token = this.getToken({
+          userEmail: user.email,
+          userID: user.id,
+          userName: user.name,
+          usertype: UserType.USER,
+        });
         return user;
       }
       throw new UnprocessableEntityException();

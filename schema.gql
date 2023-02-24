@@ -38,6 +38,7 @@ type User {
   experiences: [experiencesType!]!
   skills: [String!]!
   languages: [String!]!
+  token: String!
 }
 
 type SuccessType {

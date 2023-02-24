@@ -91,6 +91,8 @@ export class UserEntity {
   @Prop()
   @Field(() => [String])
   languages: string[];
+  @Field()
+  token: string;
 }
 
 export const UserSchema = SchemaFactory.createForClass(UserEntity);
