@@ -9,12 +9,9 @@ import { JobsModule } from './jobs/jobs.module';
   imports: [
     UserModule,
     JobsModule,
-    MongooseModule.forRoot('mongodb://localhost:27017', {
-      auth: {
-        username: 'root',
-        password: 'root',
-      },
-    }),
+    MongooseModule.forRoot(
+      'mongodb+srv://root:root@codehire-remote.sxeqw9q.mongodb.net/?retryWrites=true&w=majority',
+    ),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: 'schema.gql',
