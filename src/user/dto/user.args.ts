@@ -1,4 +1,5 @@
 import { Field, InputType } from '@nestjs/graphql';
+import { UserType } from '../interfaces/tokenPayload';
 @InputType()
 export class DesireArgs {
   @Field(() => [String], { nullable: true })
@@ -9,15 +10,23 @@ export class DesireArgs {
   annualSalary: string;
 }
 @InputType()
-export class UserArgs {
+export class UserInputType {
   @Field()
-  name: string;
+  uid: string;
   @Field()
-  age: string;
+  email: string;
   @Field()
-  birthDay: string;
-  @Field()
-  phone: string;
-  @Field(() => DesireArgs)
-  desire: DesireArgs;
+  userType: UserType;
+  @Field({ nullable: true })
+  profileImageURL: string;
+  @Field({ nullable: true })
+  userName: string;
+  // @Field()
+  // age: string;
+  // @Field()
+  // birthDay: string;
+  // @Field()
+  // phone: string;
+  // // @Field(() => DesireArgs)
+  // // desire: DesireArgs;
 }

@@ -1,7 +1,7 @@
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { UserEntity } from './models/user.entity';
 import { UserService } from './user.service';
-import { UserArgs } from './dto/user.args';
+import { UserInputType } from './dto/user.args';
 import { SuccessType } from '../common/types/successType';
 import { UseGuards } from '@nestjs/common';
 import { GqlAuthGuard } from '../auth/jwt-auth.guard';
@@ -10,13 +10,13 @@ import { GqlAuthGuard } from '../auth/jwt-auth.guard';
 export class UserResolver {
   constructor(private userService: UserService) {}
   @Mutation(() => UserEntity)
-  async createUser(@Args('userArgs') userArgs: UserArgs) {
-    return await this.userService.createUser(userArgs);
+  async createUser(@Args('userInputType') userInputType: UserInputType) {
+    return await this.userService.createUser(userInputType);
   }
-  @UseGuards(GqlAuthGuard)
+  // @UseGuards(GqlAuthGuard)
   @Query(() => UserEntity)
-  async getUserById(@Args('id') id: string) {
-    return await this.userService.getUserById(id);
+  async getUserById(@Args('uid') uid: string) {
+    return await this.userService.getUserById(uid);
   }
   @UseGuards(GqlAuthGuard)
   @Mutation(() => SuccessType, { nullable: true })

@@ -6,7 +6,7 @@ import {
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { UserEntity } from './models/user.entity';
-import { UserArgs } from './dto/user.args';
+import { UserInputType } from './dto/user.args';
 import { JwtService } from '@nestjs/jwt';
 import { ITokenPayload, UserType } from './interfaces/tokenPayload';
 
@@ -19,7 +19,7 @@ export class UserService {
 
   async getUserById(id: string, isForJob = false) {
     try {
-      const data = await this.user.findById(id);
+      const data = await this.user.findOne({ uid: id });
       if (data) return data;
       if (isForJob) return null;
       throw new NotFoundException('User Does Not Exist');
@@ -30,10 +30,10 @@ export class UserService {
   getToken(payload: ITokenPayload) {
     return this.jwtService.sign(payload);
   }
-  async createUser(userArgs: UserArgs) {
+  async createUser(userInputType: UserInputType) {
     try {
       const user: UserEntity = await this.user.create({
-        ...userArgs,
+        ...userInputType,
       });
       if (user) {
         user.token = this.getToken({

@@ -23,8 +23,12 @@ type experiencesType {
 }
 
 type User {
-  id: String!
-  name: String!
+  id: ID!
+  uid: String
+  userType: String
+  profileImageURL: String
+  userName: String
+  name: String
   currentOccupation: String!
   age: String!
   birthDay: String!
@@ -63,28 +67,22 @@ type Job {
 }
 
 type Query {
-  getUserById(id: String!): User!
+  getUserById(uid: String!): User!
   getJobs: [Job!]!
 }
 
 type Mutation {
-  createUser(userArgs: UserArgs!): User!
+  createUser(userInputType: UserInputType!): User!
   deleteUser(id: String!): SuccessType
   createJob(jobInput: JobInput!): Job
 }
 
-input UserArgs {
-  name: String!
-  age: String!
-  birthDay: String!
-  phone: String!
-  desire: DesireArgs!
-}
-
-input DesireArgs {
-  occupation: [String!]
-  employmentType: String!
-  annualSalary: String
+input UserInputType {
+  uid: String!
+  email: String!
+  userType: String!
+  profileImageURL: String
+  userName: String
 }
 
 input JobInput {
