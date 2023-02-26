@@ -1,4 +1,4 @@
-import { Field, ObjectType } from '@nestjs/graphql';
+import { Field, ID, ObjectType } from '@nestjs/graphql';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 @ObjectType()
 export class desireType {
@@ -47,10 +47,22 @@ export class experiencesType {
 @Schema()
 @ObjectType('User')
 export class UserEntity {
-  @Field()
+  @Field(() => ID)
   id: string;
   @Prop()
-  @Field()
+  @Field({ nullable: true })
+  uid: string;
+  @Prop()
+  @Field({ nullable: true })
+  userType: string;
+  @Prop()
+  @Field({ nullable: true })
+  profileImageURL: string;
+  @Prop()
+  @Field({ nullable: true })
+  userName: string;
+  @Prop()
+  @Field({ nullable: true })
   name: string;
   @Prop()
   @Field()
