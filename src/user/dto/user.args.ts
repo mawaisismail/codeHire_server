@@ -11,22 +11,6 @@ export class DesireArgs {
 }
 @InputType()
 export class UserInputType {
-  @Field()
-  uid: string;
-  @Field()
-  email: string;
-  @Field()
-  userType: UserType;
   @Field({ nullable: true })
-  profileImageURL: string;
-  @Field({ nullable: true })
-  userName: string;
-  // @Field()
-  // age: string;
-  // @Field()
-  // birthDay: string;
-  // @Field()
-  // phone: string;
-  // // @Field(() => DesireArgs)
-  // // desire: DesireArgs;
+  userInfo: string;
 }

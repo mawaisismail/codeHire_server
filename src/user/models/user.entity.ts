@@ -4,13 +4,22 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 export class desireType {
   @Field(() => [String])
   @Prop()
-  occupation: string[];
+  desiredOccupation: string[];
   @Prop()
   @Field()
-  employmentType: string;
+  firstChoiceOfWork: string;
+  @Prop()
+  @Field()
+  secondChoiceOfWork: string;
+  @Prop()
+  @Field(() => [String])
+  employmentType: string[];
   @Prop()
   @Field({ nullable: true })
   annualSalary: string;
+  @Prop()
+  @Field({ nullable: true })
+  previousSalary: string;
 }
 
 @ObjectType()
@@ -27,6 +36,18 @@ export class educationType {
   @Prop()
   @Field()
   info: string;
+}
+@ObjectType()
+export class addressType {
+  @Prop()
+  @Field()
+  Country: string;
+  @Prop()
+  @Field()
+  postalCode: string;
+  @Prop()
+  @Field()
+  building: string;
 }
 
 @ObjectType()
@@ -72,10 +93,13 @@ export class UserEntity {
   age: string;
   @Prop()
   @Field()
-  birthDay: string;
+  birthday: string;
   @Prop()
   @Field()
   phone: string;
+  @Prop()
+  @Field()
+  otherEmail: string;
   @Prop()
   @Field(() => [String])
   documents: string[];
@@ -89,11 +113,20 @@ export class UserEntity {
   @Field()
   about: string;
   @Prop()
-  @Field()
+  @Field(() => desireType)
   desire: desireType;
+  @Prop()
+  @Field()
+  profession: string;
+  @Prop()
+  @Field(() => [String])
+  otherOccupation: string[];
   @Prop()
   @Field(() => [educationType])
   education: educationType[];
+  @Prop()
+  @Field(() => [addressType])
+  address: addressType;
   @Prop()
   @Field(() => [experiencesType])
   experiences: experiencesType[];

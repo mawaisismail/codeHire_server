@@ -3,9 +3,12 @@
 # ------------------------------------------------------
 
 type desireType {
-  occupation: [String!]!
-  employmentType: String!
+  desiredOccupation: [String!]!
+  firstChoiceOfWork: String!
+  secondChoiceOfWork: String!
+  employmentType: [String!]!
   annualSalary: String
+  previousSalary: String
 }
 
 type educationType {
@@ -13,6 +16,12 @@ type educationType {
   institute: String!
   year: String!
   info: String!
+}
+
+type addressType {
+  Country: String!
+  postalCode: String!
+  building: String!
 }
 
 type experiencesType {
@@ -31,14 +40,18 @@ type User {
   name: String
   currentOccupation: String!
   age: String!
-  birthDay: String!
+  birthday: String!
   phone: String!
+  otherEmail: String!
   documents: [String!]!
   email: String!
   location: String!
   about: String!
   desire: desireType!
+  profession: String!
+  otherOccupation: [String!]!
   education: [educationType!]!
+  address: [addressType!]!
   experiences: [experiencesType!]!
   skills: [String!]!
   languages: [String!]!
@@ -78,11 +91,7 @@ type Mutation {
 }
 
 input UserInputType {
-  uid: String!
-  email: String!
-  userType: String!
-  profileImageURL: String
-  userName: String
+  userInfo: String
 }
 
 input JobInput {
