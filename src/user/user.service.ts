@@ -30,10 +30,10 @@ export class UserService {
   getToken(payload: ITokenPayload) {
     return this.jwtService.sign(payload);
   }
-  async createUser(userInputType: UserInputType) {
+  async createUser(userInputType) {
     try {
       const user: UserEntity = await this.user.create({
-        ...userInputType,
+        ...JSON.parse(userInputType.userInfo),
       });
       if (user) {
         user.token = this.getToken({
