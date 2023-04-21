@@ -16,6 +16,12 @@ import { JobsModule } from './jobs/jobs.module';
       driver: ApolloDriver,
       autoSchemaFile: 'schema.gql',
       playground: true,
+      formatResponse: (response, requestContext) => {
+        if (response.errors) {
+          delete response.data;
+        }
+        return response;
+      },
     }),
   ],
 })

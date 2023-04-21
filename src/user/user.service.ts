@@ -24,7 +24,7 @@ export class UserService {
       if (isForJob) return null;
       throw new NotFoundException('User Does Not Exist');
     } catch (e) {
-      throw new UnprocessableEntityException(e.message);
+      throw new NotFoundException(e.message);
     }
   }
   getToken(payload: ITokenPayload) {
