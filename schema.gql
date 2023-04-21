@@ -32,7 +32,6 @@ type experiencesType {
 }
 
 type User {
-  id: ID!
   uid: String
   userType: String
   profileImageURL: String
@@ -86,6 +85,7 @@ type Query {
 
 type Mutation {
   createUser(userInputType: UserInputType!): User!
+  updateUser(userInputType: UserInputType!): User!
   deleteUser(id: String!): SuccessType
   createJob(jobInput: JobInput!): Job
 }
