@@ -6,9 +6,9 @@ import {
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { UserEntity } from './models/user.entity';
-import { UserInputType } from './dto/user.args';
 import { JwtService } from '@nestjs/jwt';
 import { ITokenPayload, UserType } from './interfaces/tokenPayload';
+import { IUser } from '../common/interface/user';
 
 @Injectable()
 export class UserService {
@@ -38,7 +38,7 @@ export class UserService {
       if (user) {
         user.token = this.getToken({
           userEmail: user.email,
-          userID: user.id,
+          userID: user.uid,
           userName: user.name,
           usertype: UserType.USER,
         });
@@ -50,9 +50,27 @@ export class UserService {
     }
   }
 
+  async updateUser(userInputType, user: IUser): Promise<UserEntity> {
+    try {
+      const updatedUser = await this.user.updateOne(
+        { uid: user.userID },
+        {
+          ...JSON.parse(userInputType.userInfo),
+        },
+        { new: true },
+      );
+      const data = await this.getUserById(user.userID);
+
+      if (data) return data;
+      throw new UnprocessableEntityException();
+    } catch (e) {
+      throw new UnprocessableEntityException(e.message);
+    }
+  }
+
   async deleteUser(id: string) {
     try {
-      const data = await this.user.deleteOne({ _id: id });
+      const data = await this.user.deleteOne({ uid: id });
       if (data.deletedCount > 0) {
         return { success: 'User Deleted Successfully' };
       }

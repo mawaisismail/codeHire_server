@@ -9,7 +9,7 @@ import { JwtStrategy } from '../auth/jwt.strategy';
   imports: [
     JwtModule.register({
       secret: 'JWT_SECRET',
-      signOptions: { expiresIn: '60s' },
+      signOptions: { expiresIn: '600000000s' },
     }),
     MongooseModule.forFeature([
       {
