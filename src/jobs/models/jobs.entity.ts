@@ -1,15 +1,16 @@
-import { Field, ID, ObjectType } from '@nestjs/graphql';
+import { Field, ObjectType } from '@nestjs/graphql';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { UserEntity } from '../../user/models/user.entity';
+import { CompanyEntity } from '../../company/models/company.entity';
 
 @Schema()
 @ObjectType('Job')
 export class JobEntity {
-  @Field(() => ID)
+  @Prop()
+  @Field()
   id: string;
   @Prop()
-  @Field(() => UserEntity, { nullable: true })
-  company: UserEntity;
+  @Field(() => CompanyEntity, { nullable: true })
+  company: CompanyEntity;
   @Prop()
   @Field()
   companyID: string;
@@ -18,34 +19,37 @@ export class JobEntity {
   title: string;
   @Prop()
   @Field({ nullable: true })
-  coverImage: string;
+  coverImg: string;
   @Prop()
   @Field({ nullable: true })
   experience: string;
   @Prop()
-  @Field({ nullable: true })
-  employmeeType: string;
+  @Field((returns) => [String], { nullable: true })
+  employmentType: string[];
   @Prop()
   @Field({ nullable: true })
   position: string;
   @Prop()
   @Field({ nullable: true })
-  salary: string;
+  offer_salary: string;
   @Prop()
   @Field({ nullable: true })
   description: string;
   @Prop()
-  @Field(() => [String], { nullable: true })
-  responsibilities: string[];
+  @Field({ nullable: true })
+  responsibilities: string;
   @Prop()
-  @Field(() => [String], { nullable: true })
-  qualification: string[];
+  @Field({ nullable: true })
+  qualification: string;
   @Prop()
-  @Field(() => [String], { nullable: true })
-  skillsRequired: string[];
+  @Field((returns) => [String], { nullable: true })
+  skills: string[];
   @Prop()
   @Field({ nullable: true })
   freeWords: string;
+  @Prop()
+  @Field({ nullable: true })
+  location: string;
 }
 
 export const JobSchema = SchemaFactory.createForClass(JobEntity);
