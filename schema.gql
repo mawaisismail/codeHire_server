@@ -100,6 +100,7 @@ type Job {
 type Query {
   getUserById(uid: String!): User!
   getJobs: [Job!]!
+  getCompanyJobs: [Job!]!
 }
 
 type Mutation {
