@@ -10,6 +10,8 @@ import { JobEntity } from './models/jobs.entity';
 import { JobsService } from './jobs.service';
 import { UserService } from '../user/user.service';
 import { JobInput } from './dto/job.input';
+import { User } from '../common/user.decorator';
+import { IUser } from '../common/interface/user';
 
 @Resolver(() => JobEntity)
 export class JobsResolver {
@@ -24,8 +26,8 @@ export class JobsResolver {
   }
 
   @Mutation(() => JobEntity, { nullable: true })
-  async createJob(@Args('jobInput') jobInput: JobInput) {
-    return await this.jobService.createJob(jobInput);
+  async createJob(@User() user: IUser, @Args('jobInput') jobInput: JobInput) {
+    return await this.jobService.createJob(jobInput, user);
   }
 
   @ResolveField()

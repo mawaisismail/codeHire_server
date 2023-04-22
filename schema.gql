@@ -61,23 +61,6 @@ type SuccessType {
   success: String!
 }
 
-type Job {
-  id: ID!
-  company: User
-  companyID: String!
-  title: String
-  coverImage: String
-  experience: String
-  employmeeType: String
-  position: String
-  salary: String
-  description: String
-  responsibilities: [String!]
-  qualification: [String!]
-  skillsRequired: [String!]
-  freeWords: String
-}
-
 type Company {
   uid: String
   userType: String
@@ -94,6 +77,24 @@ type Company {
   established: String
   about: String
   token: String!
+}
+
+type Job {
+  id: String!
+  company: Company
+  companyID: String!
+  title: String
+  coverImg: String
+  experience: String
+  employmentType: [String!]
+  position: String
+  offer_salary: String
+  description: String
+  responsibilities: String
+  qualification: String
+  skills: [String!]
+  freeWords: String
+  location: String
 }
 
 type Query {
@@ -115,18 +116,7 @@ input UserInputType {
 }
 
 input JobInput {
-  companyID: String!
-  title: String
-  coverImage: String
-  experience: String
-  employmeeType: String
-  position: String
-  salary: String
-  description: String
-  responsibilities: [String!]
-  qualification: [String!]
-  skillsRequired: [String!]
-  freeWords: String
+  jobInfo: String!
 }
 
 input CreateCompanyArgs {
