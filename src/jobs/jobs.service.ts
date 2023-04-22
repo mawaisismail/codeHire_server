@@ -15,10 +15,15 @@ export class JobsService {
   async getJobs() {
     return this.job.find();
   }
-  async createJob(jobInput: JobInput, user: IUser) {
+
+  async getCompanyJobs(company: IUser) {
+    return this.job.find({ companyID: company.userID });
+  }
+
+  async createJob(jobInput: JobInput, company: IUser) {
     return await this.job.create({
       ...JSON.parse(jobInput.jobInfo),
-      companyID: user.userID,
+      companyID: company.userID,
       id: uuidv4(),
     });
   }

@@ -25,6 +25,11 @@ export class JobsResolver {
     return await this.jobService.getJobs();
   }
 
+  @Query(() => [JobEntity])
+  async getCompanyJobs(@User() company: IUser) {
+    return await this.jobService.getCompanyJobs(company);
+  }
+
   @Mutation(() => JobEntity, { nullable: true })
   async createJob(@User() user: IUser, @Args('jobInput') jobInput: JobInput) {
     return await this.jobService.createJob(jobInput, user);
