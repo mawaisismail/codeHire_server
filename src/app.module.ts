@@ -4,11 +4,13 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { UserModule } from './user/user.module';
 import { JobsModule } from './jobs/jobs.module';
+import { CompanyModule } from './company/company.module';
 
 @Module({
   imports: [
     UserModule,
     JobsModule,
+    CompanyModule,
     MongooseModule.forRoot(
       'mongodb+srv://root:root@codehire-remote.sxeqw9q.mongodb.net/?retryWrites=true&w=majority',
     ),

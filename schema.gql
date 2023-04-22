@@ -78,6 +78,24 @@ type Job {
   freeWords: String
 }
 
+type Company {
+  uid: String
+  userType: String
+  profileImageURL: String
+  userName: String
+  email: String
+  name: String!
+  owner: String
+  coverImage: String
+  total_employee: String
+  location: String
+  website: String
+  phone: String
+  established: String
+  about: String
+  token: String!
+}
+
 type Query {
   getUserById(uid: String!): User!
   getJobs: [Job!]!
@@ -88,6 +106,8 @@ type Mutation {
   updateUser(userInputType: UserInputType!): User!
   deleteUser(id: String!): SuccessType
   createJob(jobInput: JobInput!): Job
+  createCompany(createCompanyArgs: CreateCompanyArgs!): Company!
+  updateCompany(createCompanyArgs: CreateCompanyArgs!): Company!
 }
 
 input UserInputType {
@@ -107,4 +127,8 @@ input JobInput {
   qualification: [String!]
   skillsRequired: [String!]
   freeWords: String
+}
+
+input CreateCompanyArgs {
+  companyInfo: String!
 }
