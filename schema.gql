@@ -95,6 +95,8 @@ type Job {
   skills: [String!]
   freeWords: String
   location: String
+  createdAt: String
+  updatedAt: String
 }
 
 type Query {
@@ -108,6 +110,7 @@ type Mutation {
   updateUser(userInputType: UserInputType!): User!
   deleteUser(id: String!): SuccessType
   createJob(jobInput: JobInput!): Job
+  applyJob(jobApplyDto: JobApplyDto!): Job
   createCompany(createCompanyArgs: CreateCompanyArgs!): Company!
   updateCompany(createCompanyArgs: CreateCompanyArgs!): Company!
 }
@@ -118,6 +121,16 @@ input UserInputType {
 
 input JobInput {
   jobInfo: String!
+}
+
+input JobApplyDto {
+  company_id: String!
+  job_id: String!
+  user_id: String!
+  name: String!
+  coverLetter: String!
+  message: String!
+  email: String!
 }
 
 input CreateCompanyArgs {

@@ -9,7 +9,7 @@ import {
 import { JobEntity } from './models/jobs.entity';
 import { JobsService } from './jobs.service';
 import { UserService } from '../user/user.service';
-import { JobInput } from './dto/job.input';
+import { JobApplyDto, JobInput } from './dto/job.input';
 import { User } from '../common/user.decorator';
 import { IUser } from '../common/interface/user';
 
@@ -33,6 +33,14 @@ export class JobsResolver {
   @Mutation(() => JobEntity, { nullable: true })
   async createJob(@User() user: IUser, @Args('jobInput') jobInput: JobInput) {
     return await this.jobService.createJob(jobInput, user);
+  }
+
+  @Mutation(() => JobEntity, { nullable: true })
+  async applyJob(
+    @User() user: IUser,
+    @Args('jobApplyDto') jobApplyDto: JobApplyDto,
+  ) {
+    return await this.jobService.applyJob(jobApplyDto);
   }
 
   @ResolveField()

@@ -1,6 +1,11 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { JobEntity, JobSchema } from './models/jobs.entity';
+import {
+  ApplyJobs,
+  ApplyJobSchema,
+  JobEntity,
+  JobSchema,
+} from './models/jobs.entity';
 import { JobsResolver } from './jobs.resolver';
 import { JobsService } from './jobs.service';
 import { UserModule } from '../user/user.module';
@@ -12,6 +17,10 @@ import { UserModule } from '../user/user.module';
       {
         name: JobEntity.name,
         schema: JobSchema,
+      },
+      {
+        name: ApplyJobs.name,
+        schema: ApplyJobSchema,
       },
     ]),
   ],
