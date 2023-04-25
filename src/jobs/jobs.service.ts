@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { JobEntity } from './models/jobs.entity';
+import { ApplyJobs, JobEntity } from './models/jobs.entity';
 import { Model } from 'mongoose';
-import { JobInput } from './dto/job.input';
+import { JobApplyDto, JobInput } from './dto/job.input';
 import { IUser } from '../common/interface/user';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -10,6 +10,8 @@ import { v4 as uuidv4 } from 'uuid';
 export class JobsService {
   constructor(
     @InjectModel(JobEntity.name) private readonly job: Model<JobEntity>,
+    @InjectModel(ApplyJobs.name)
+    private readonly applyJobModel: Model<ApplyJobs>,
   ) {}
 
   async getJobs() {
@@ -25,6 +27,12 @@ export class JobsService {
       ...JSON.parse(jobInput.jobInfo),
       companyID: company.userID,
       id: uuidv4(),
+    });
+  }
+  async applyJob(applyDTO: JobApplyDto) {
+    return await this.applyJobModel.create({
+      id: uuidv4(),
+      ...applyDTO,
     });
   }
 }

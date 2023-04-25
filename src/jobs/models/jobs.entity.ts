@@ -50,6 +50,54 @@ export class JobEntity {
   @Prop()
   @Field({ nullable: true })
   location: string;
+  @Field({ nullable: true })
+  createdAt: string;
+  @Field({ nullable: true })
+  updatedAt: string;
 }
 
-export const JobSchema = SchemaFactory.createForClass(JobEntity);
+@Schema()
+@ObjectType('Job')
+export class ApplyJobs {
+  @Prop()
+  @Field()
+  id: string;
+  @Prop()
+  @Field()
+  user_id: string;
+  @Prop()
+  @Field()
+  company_id: string;
+  @Prop()
+  @Field()
+  job_id: string;
+  @Prop()
+  @Field()
+  status: string;
+  @Prop()
+  @Field()
+  name: string;
+  @Prop()
+  @Field()
+  coverLetter: string;
+  @Prop()
+  @Field()
+  message: string;
+  @Prop()
+  @Field()
+  email: string;
+  @Field({ nullable: true })
+  createdAt: string;
+  @Field({ nullable: true })
+  updatedAt: string;
+}
+
+export const JobSchema = SchemaFactory.createForClass(JobEntity).set(
+  'timestamps',
+  true,
+);
+
+export const ApplyJobSchema = SchemaFactory.createForClass(ApplyJobs).set(
+  'timestamps',
+  true,
+);
