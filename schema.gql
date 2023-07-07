@@ -100,7 +100,9 @@ type Job {
 }
 
 type Query {
+  getUser: User!
   getUserById(uid: String!): User!
+  getLoginUser(uid: String!): User!
   getJobs: [Job!]!
   getCompanyJobs: [Job!]!
 }
