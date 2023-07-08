@@ -2,17 +2,17 @@ import { Field, ObjectType } from '@nestjs/graphql';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 @ObjectType()
 export class desireType {
-  @Field(() => [String])
+  @Field(() => [String], { nullable: true })
   @Prop()
   desiredOccupation: string[];
   @Prop()
-  @Field()
+  @Field({ nullable: true })
   firstChoiceOfWork: string;
   @Prop()
-  @Field()
+  @Field({ nullable: true })
   secondChoiceOfWork: string;
   @Prop()
-  @Field(() => [String])
+  @Field(() => [String], { nullable: true })
   employmentType: string[];
   @Prop()
   @Field({ nullable: true })
@@ -25,44 +25,44 @@ export class desireType {
 @ObjectType()
 export class educationType {
   @Prop()
-  @Field()
+  @Field({ nullable: true })
   degree: string;
   @Prop()
-  @Field()
+  @Field({ nullable: true })
   institute: string;
   @Prop()
-  @Field()
+  @Field({ nullable: true })
   year: string;
   @Prop()
-  @Field()
+  @Field({ nullable: true })
   info: string;
 }
 @ObjectType()
 export class addressType {
   @Prop()
-  @Field()
+  @Field({ nullable: true })
   Country: string;
   @Prop()
-  @Field()
+  @Field({ nullable: true })
   postalCode: string;
   @Prop()
-  @Field()
+  @Field({ nullable: true })
   building: string;
 }
 
 @ObjectType()
 export class experiencesType {
   @Prop()
-  @Field()
+  @Field({ nullable: true })
   position: string;
   @Prop()
-  @Field()
+  @Field({ nullable: true })
   institute: string;
   @Prop()
-  @Field()
+  @Field({ nullable: true })
   year: string;
   @Prop()
-  @Field()
+  @Field({ nullable: true })
   info: string;
 }
 @Schema()
@@ -84,57 +84,57 @@ export class UserEntity {
   @Field({ nullable: true })
   name: string;
   @Prop()
-  @Field()
+  @Field({ nullable: true })
   currentOccupation: string;
   @Prop()
-  @Field()
+  @Field({ nullable: true })
   age: string;
   @Prop()
-  @Field()
+  @Field({ nullable: true })
   birthday: string;
   @Prop()
-  @Field()
+  @Field({ nullable: true })
   phone: string;
   @Prop()
-  @Field()
+  @Field({ nullable: true })
   otherEmail: string;
   @Prop()
-  @Field(() => [String])
+  @Field(() => [String], { nullable: true })
   documents: string[];
   @Prop()
-  @Field()
+  @Field({ nullable: true })
   email: string;
   @Prop()
-  @Field()
+  @Field({ nullable: true })
   location: string;
   @Prop()
-  @Field()
+  @Field({ nullable: true })
   about: string;
   @Prop()
-  @Field(() => desireType)
+  @Field(() => desireType, { nullable: true })
   desire: desireType;
   @Prop()
-  @Field()
+  @Field({ nullable: true })
   profession: string;
   @Prop()
-  @Field(() => [String])
+  @Field(() => [String], { nullable: true })
   otherOccupation: string[];
   @Prop()
-  @Field(() => [educationType])
+  @Field(() => [educationType], { nullable: true })
   education: educationType[];
   @Prop()
-  @Field(() => [addressType])
+  @Field(() => addressType, { nullable: true })
   address: addressType;
   @Prop()
-  @Field(() => [experiencesType])
+  @Field(() => [experiencesType], { nullable: true })
   experiences: experiencesType[];
   @Prop()
-  @Field(() => [String])
+  @Field(() => [String], { nullable: true })
   skills: string[];
   @Prop()
-  @Field(() => [String])
+  @Field(() => [String], { nullable: true })
   languages: string[];
-  @Field()
+  @Field({ nullable: true })
   token: string;
 }
 
