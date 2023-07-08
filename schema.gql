@@ -79,6 +79,17 @@ type Company {
   token: String
 }
 
+type ChatMessage {
+  jobId: String!
+  content: String
+  createdAt: DateTime
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
 type Job {
   id: String!
   company: Company
@@ -108,6 +119,7 @@ type Query {
   getLoginCompany(uid: String!): Company!
   getCompanyById: Company!
   getCompany: Company!
+  messages: [ChatMessage!]!
 }
 
 type Mutation {
@@ -118,6 +130,7 @@ type Mutation {
   applyJob(jobApplyDto: JobApplyDto!): Job
   createCompany(createCompanyArgs: CreateCompanyArgs!): Company!
   updateCompany(createCompanyArgs: CreateCompanyArgs!): Company!
+  messageSend(jobId: String!, content: String!): ChatMessage!
 }
 
 input UserInputType {
@@ -140,4 +153,9 @@ input JobApplyDto {
 
 input CreateCompanyArgs {
   companyInfo: String!
+}
+
+type Subscription {
+  messageSentBetJobId: ChatMessage!
+  messageSentByJobId(jobId: String!): ChatMessage!
 }

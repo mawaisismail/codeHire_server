@@ -1,6 +1,7 @@
 import { Field, ObjectType } from '@nestjs/graphql';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { CompanyEntity } from '../../company/models/company.entity';
+import { ChatMessageEntity } from '../../chat/models/chat-message.entity';
 
 @Schema()
 @ObjectType('Job')
@@ -86,6 +87,11 @@ export class ApplyJobs {
   @Prop()
   @Field()
   email: string;
+
+  @Prop()
+  @Field(() => [ChatMessageEntity], { nullable: true })
+  chatMessages?: ChatMessageEntity[];
+
   @Field({ nullable: true })
   createdAt: string;
   @Field({ nullable: true })

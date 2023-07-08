@@ -6,12 +6,13 @@ import {
   ResolveField,
   Resolver,
 } from '@nestjs/graphql';
-import { JobEntity } from './models/jobs.entity';
+import { ApplyJobs, JobEntity } from './models/jobs.entity';
 import { JobsService } from './jobs.service';
 import { UserService } from '../user/user.service';
 import { JobApplyDto, JobInput } from './dto/job.input';
 import { User } from '../common/user.decorator';
 import { IUser } from '../common/interface/user';
+import { ChatMessageEntity } from '../chat/models/chat-message.entity';
 
 @Resolver(() => JobEntity)
 export class JobsResolver {
