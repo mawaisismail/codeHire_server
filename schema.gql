@@ -33,6 +33,8 @@ type experiencesType {
 
 type User {
   uid: String
+  first_name: String
+  last_name: String
   userType: String
   profileImageURL: String
   userName: String

@@ -73,6 +73,12 @@ export class UserEntity {
   uid: string;
   @Prop()
   @Field({ nullable: true })
+  first_name: string;
+  @Prop()
+  @Field({ nullable: true })
+  last_name: string;
+  @Prop()
+  @Field({ nullable: true })
   userType: string;
   @Prop()
   @Field({ nullable: true })
