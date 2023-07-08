@@ -20,7 +20,7 @@ export class CompanyEntity {
   @Field({ nullable: true })
   email: string;
   @Prop()
-  @Field()
+  @Field({ nullable: true })
   name: string;
   @Prop()
   @Field({ nullable: true })
@@ -46,7 +46,7 @@ export class CompanyEntity {
   @Prop()
   @Field({ nullable: true })
   about: string;
-  @Field()
+  @Field({ nullable: true })
   token: string;
 }
 

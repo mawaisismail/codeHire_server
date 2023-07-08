@@ -24,11 +24,24 @@ export class UserResolver {
   ) {
     return await this.userService.updateUser(userInputType, user);
   }
+
+  @UseGuards(GqlAuthGuard)
+  @Query(() => UserEntity)
+  async getUser(@User() user: IUser) {
+    return await this.userService.getUserById(user.userID);
+  }
+
   @UseGuards(GqlAuthGuard)
   @Query(() => UserEntity)
   async getUserById(@Args('uid') uid: string) {
     return await this.userService.getUserById(uid);
   }
+
+  @Query(() => UserEntity)
+  async getLoginUser(@Args('uid') uid: string) {
+    return await this.userService.getLoginUser(uid);
+  }
+
   @UseGuards(GqlAuthGuard)
   @Mutation(() => SuccessType, { nullable: true })
   async deleteUser(@Args('id') id: string) {

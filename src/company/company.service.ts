@@ -41,6 +41,24 @@ export class CompanyService {
   async getCompanyId(uid: string): Promise<CompanyEntity> {
     return await this.company.findOne({ uid });
   }
+  async getLoginCompany(uid: string): Promise<CompanyEntity> {
+    try {
+      const company = await this.company.findOne({ uid });
+      console.log(company);
+      if (company) {
+        company.token = this.getToken({
+          userEmail: company.email,
+          userID: company.uid,
+          userName: company.name,
+          usertype: UserType.COMPANY,
+        });
+        return company;
+      }
+      throw new UnprocessableEntityException();
+    } catch (e) {
+      throw new UnprocessableEntityException(e.message);
+    }
+  }
 
   async updateCompany(userInputType, company: IUser): Promise<CompanyEntity> {
     try {

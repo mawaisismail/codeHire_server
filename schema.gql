@@ -3,32 +3,32 @@
 # ------------------------------------------------------
 
 type desireType {
-  desiredOccupation: [String!]!
-  firstChoiceOfWork: String!
-  secondChoiceOfWork: String!
-  employmentType: [String!]!
+  desiredOccupation: [String!]
+  firstChoiceOfWork: String
+  secondChoiceOfWork: String
+  employmentType: [String!]
   annualSalary: String
   previousSalary: String
 }
 
 type educationType {
-  degree: String!
-  institute: String!
-  year: String!
-  info: String!
+  degree: String
+  institute: String
+  year: String
+  info: String
 }
 
 type addressType {
-  Country: String!
-  postalCode: String!
-  building: String!
+  Country: String
+  postalCode: String
+  building: String
 }
 
 type experiencesType {
-  position: String!
-  institute: String!
-  year: String!
-  info: String!
+  position: String
+  institute: String
+  year: String
+  info: String
 }
 
 type User {
@@ -37,24 +37,24 @@ type User {
   profileImageURL: String
   userName: String
   name: String
-  currentOccupation: String!
-  age: String!
-  birthday: String!
-  phone: String!
-  otherEmail: String!
-  documents: [String!]!
-  email: String!
-  location: String!
-  about: String!
-  desire: desireType!
-  profession: String!
-  otherOccupation: [String!]!
-  education: [educationType!]!
-  address: [addressType!]!
-  experiences: [experiencesType!]!
-  skills: [String!]!
-  languages: [String!]!
-  token: String!
+  currentOccupation: String
+  age: String
+  birthday: String
+  phone: String
+  otherEmail: String
+  documents: [String!]
+  email: String
+  location: String
+  about: String
+  desire: desireType
+  profession: String
+  otherOccupation: [String!]
+  education: [educationType!]
+  address: addressType
+  experiences: [experiencesType!]
+  skills: [String!]
+  languages: [String!]
+  token: String
 }
 
 type SuccessType {
@@ -67,7 +67,7 @@ type Company {
   profileImageURL: String
   userName: String
   email: String
-  name: String!
+  name: String
   owner: String
   coverImage: String
   total_employee: String
@@ -76,7 +76,7 @@ type Company {
   phone: String
   established: String
   about: String
-  token: String!
+  token: String
 }
 
 type ChatMessage {
@@ -111,9 +111,14 @@ type Job {
 }
 
 type Query {
+  getUser: User!
   getUserById(uid: String!): User!
+  getLoginUser(uid: String!): User!
   getJobs: [Job!]!
   getCompanyJobs: [Job!]!
+  getLoginCompany(uid: String!): Company!
+  getCompanyById: Company!
+  getCompany: Company!
   messages: [ChatMessage!]!
 }
 

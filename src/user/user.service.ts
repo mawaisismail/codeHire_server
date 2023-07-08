@@ -27,6 +27,24 @@ export class UserService {
       throw new NotFoundException(e.message);
     }
   }
+
+  async getLoginUser(uid: string) {
+    try {
+      const user = await this.user.findOne({ uid: uid });
+      if (user) {
+        user.token = this.getToken({
+          userEmail: user.email,
+          userID: user.uid,
+          userName: user.name,
+          usertype: UserType.USER,
+        });
+        return user;
+      }
+      throw new NotFoundException('User Does Not Exist');
+    } catch (e) {
+      throw new NotFoundException(e.message);
+    }
+  }
   getToken(payload: ITokenPayload) {
     return this.jwtService.sign(payload);
   }
