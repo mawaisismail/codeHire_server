@@ -6,7 +6,7 @@ import { UserModule } from './user/user.module';
 import { JobsModule } from './jobs/jobs.module';
 import { CompanyModule } from './company/company.module';
 import { ChatModule } from './chat/chat.module';
-import { RedisModule } from 'nestjs-redis';
+import { UploadModule } from './upload/upload.module';
 
 @Module({
   imports: [
@@ -14,6 +14,7 @@ import { RedisModule } from 'nestjs-redis';
     JobsModule,
     CompanyModule,
     ChatModule,
+    UploadModule,
     MongooseModule.forRoot(
       'mongodb+srv://root:root@codehire-remote.sxeqw9q.mongodb.net/?retryWrites=true&w=majority',
     ),
@@ -22,7 +23,7 @@ import { RedisModule } from 'nestjs-redis';
       installSubscriptionHandlers: true,
       autoSchemaFile: 'schema.gql',
       playground: true,
-      formatResponse: (response, requestContext) => {
+      formatResponse: (response) => {
         if (response.errors) {
           delete response.data;
         }
