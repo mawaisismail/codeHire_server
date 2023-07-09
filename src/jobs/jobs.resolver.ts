@@ -31,12 +31,21 @@ export class JobsResolver {
     return await this.jobService.getCompanyJobs(company);
   }
 
+  @Query(() => [ApplyJobs])
+  async getApplyJobs() {
+    return await this.jobService.getApplyJobs();
+  }
+  @Query(() => [ApplyJobs])
+  async getApplyJobsByUser(@User() user: IUser) {
+    return await this.jobService.getApplyJobsByUser(user);
+  }
+
   @Mutation(() => JobEntity, { nullable: true })
   async createJob(@User() user: IUser, @Args('jobInput') jobInput: JobInput) {
     return await this.jobService.createJob(jobInput, user);
   }
 
-  @Mutation(() => JobEntity, { nullable: true })
+  @Mutation(() => ApplyJobs, { nullable: true })
   async applyJob(
     @User() user: IUser,
     @Args('jobApplyDto') jobApplyDto: JobApplyDto,

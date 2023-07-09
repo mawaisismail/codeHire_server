@@ -15,6 +15,10 @@ export class ChatMessageEntity {
 
   @Prop()
   @Field({ nullable: true })
+  senderId: string;
+
+  @Prop()
+  @Field({ nullable: true })
   createdAt: Date;
 }
 

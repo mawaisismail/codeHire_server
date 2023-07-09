@@ -84,6 +84,7 @@ type Company {
 type ChatMessage {
   jobId: String!
   content: String
+  senderId: String
   createdAt: DateTime
 }
 
@@ -112,12 +113,29 @@ type Job {
   updatedAt: String
 }
 
+type ApplyJobs {
+  id: String!
+  user_id: String!
+  company_id: String!
+  job_id: String!
+  status: String!
+  name: String!
+  coverLetter: String!
+  message: String!
+  email: String!
+  chatMessages: [ChatMessage!]
+  createdAt: String
+  updatedAt: String
+}
+
 type Query {
   getUser: User!
   getUserById(uid: String!): User!
   getLoginUser(uid: String!): User!
   getJobs: [Job!]!
   getCompanyJobs: [Job!]!
+  getApplyJobs: [ApplyJobs!]!
+  getApplyJobsByUser: [ApplyJobs!]!
   getLoginCompany(uid: String!): Company!
   getCompanyById: Company!
   getCompany: Company!
@@ -129,10 +147,10 @@ type Mutation {
   updateUser(userInputType: UserInputType!): User!
   deleteUser(id: String!): SuccessType
   createJob(jobInput: JobInput!): Job
-  applyJob(jobApplyDto: JobApplyDto!): Job
+  applyJob(jobApplyDto: JobApplyDto!): ApplyJobs
   createCompany(createCompanyArgs: CreateCompanyArgs!): Company!
   updateCompany(createCompanyArgs: CreateCompanyArgs!): Company!
-  messageSend(jobId: String!, content: String!): ChatMessage!
+  messageSend(jobId: String!, content: String!, senderId: String!): ChatMessage!
 }
 
 input UserInputType {
@@ -158,6 +176,6 @@ input CreateCompanyArgs {
 }
 
 type Subscription {
-  messageSentBetJobId: ChatMessage!
+  messageSent: ChatMessage!
   messageSentByJobId(jobId: String!): ChatMessage!
 }

@@ -22,17 +22,19 @@ export class ChatResolver {
   async messageSend(
     @Args('jobId') jobId: string,
     @Args('content') content: string,
+    @Args('senderId') senderId: string,
   ): Promise<ChatMessageEntity> {
     const newMessage: ChatMessageEntity = {
       jobId,
       content,
+      senderId,
       createdAt: new Date(),
     };
     return this.chatService.sendMessage(newMessage);
   }
 
   @Subscription(() => ChatMessageEntity)
-  async messageSentBetJobId(@Context() { payload }: any) {
+  async messageSent(@Context() { payload }: any) {
     console.log(payload);
     console.log('msg send', getAsyncIterator(EVENT_MESSAGE_SENT));
     return getAsyncIterator(EVENT_MESSAGE_SENT);

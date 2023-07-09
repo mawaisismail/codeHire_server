@@ -58,7 +58,7 @@ export class JobEntity {
 }
 
 @Schema()
-@ObjectType('Job')
+@ObjectType('ApplyJobs')
 export class ApplyJobs {
   @Prop()
   @Field()
