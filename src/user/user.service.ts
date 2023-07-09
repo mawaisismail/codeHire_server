@@ -28,6 +28,14 @@ export class UserService {
     }
   }
 
+  async getAllUsers() {
+    try {
+      return await this.user.find();
+    } catch (e) {
+      throw new NotFoundException(e.message);
+    }
+  }
+
   async getLoginUser(uid: string) {
     try {
       const user = await this.user.findOne({ uid: uid });

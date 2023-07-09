@@ -141,6 +141,7 @@ type ApplyJobs {
 
 type Query {
   getUser: User!
+  getAllUsers: [User!]!
   getUserById(uid: String!): User!
   getLoginUser(uid: String!): User!
   getJobs: [Job!]!
