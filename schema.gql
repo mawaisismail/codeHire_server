@@ -63,6 +63,16 @@ type SuccessType {
   success: String!
 }
 
+type workingHoursType {
+  monday: String
+  tuesday: String
+  wednesday: String
+  thursday: String
+  friday: String
+  saturday: String
+  sunday: String
+}
+
 type Company {
   uid: String
   userType: String
@@ -79,6 +89,7 @@ type Company {
   established: String
   about: String
   token: String
+  workingHours: workingHoursType
 }
 
 type ChatMessage {

@@ -1,6 +1,31 @@
 import { Field, ObjectType } from '@nestjs/graphql';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
+@ObjectType()
+export class workingHoursType {
+  @Prop()
+  @Field({ nullable: true })
+  monday: string;
+  @Prop()
+  @Field({ nullable: true })
+  tuesday: string;
+  @Prop()
+  @Field({ nullable: true })
+  wednesday: string;
+  @Prop()
+  @Field({ nullable: true })
+  thursday: string;
+  @Prop()
+  @Field({ nullable: true })
+  friday: string;
+  @Prop()
+  @Field({ nullable: true })
+  saturday: string;
+  @Prop()
+  @Field({ nullable: true })
+  sunday: string;
+}
+
 @Schema()
 @ObjectType('Company')
 export class CompanyEntity {
@@ -48,6 +73,9 @@ export class CompanyEntity {
   about: string;
   @Field({ nullable: true })
   token: string;
+  @Prop()
+  @Field(() => workingHoursType, { nullable: true })
+  workingHours: workingHoursType;
 }
 
 export const companySchema = SchemaFactory.createForClass(CompanyEntity);
