@@ -7,6 +7,7 @@ import { JobsModule } from './jobs/jobs.module';
 import { CompanyModule } from './company/company.module';
 import { ChatModule } from './chat/chat.module';
 import { UploadModule } from './upload/upload.module';
+import { DocsModule } from './docs/docs.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { UploadModule } from './upload/upload.module';
     CompanyModule,
     ChatModule,
     UploadModule,
+    DocsModule,
     MongooseModule.forRoot(
       'mongodb+srv://root:root@codehire-remote.sxeqw9q.mongodb.net/?retryWrites=true&w=majority',
     ),

@@ -139,6 +139,12 @@ type ApplyJobs {
   updatedAt: String
 }
 
+type docs {
+  uid: String
+  url: String
+  name: String
+}
+
 type Query {
   getUser: User!
   getAllUsers: [User!]!
@@ -153,6 +159,7 @@ type Query {
   getCompanyById: Company!
   getCompany: Company!
   messages: [ChatMessage!]!
+  getDocs: [docs!]!
 }
 
 type Mutation {
@@ -164,6 +171,8 @@ type Mutation {
   createCompany(createCompanyArgs: CreateCompanyArgs!): Company!
   updateCompany(createCompanyArgs: CreateCompanyArgs!): Company!
   messageSend(jobId: String!, content: String!, senderId: String!): ChatMessage!
+  upload(url: String!, name: String!): docs!
+  deleteDoc(uid: String!): docs!
 }
 
 input UserInputType {
