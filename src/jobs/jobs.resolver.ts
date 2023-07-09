@@ -13,6 +13,8 @@ import { JobApplyDto, JobInput } from './dto/job.input';
 import { User } from '../common/user.decorator';
 import { IUser } from '../common/interface/user';
 import { CompanyService } from '../company/company.service';
+import {UserEntity} from "../user/models/user.entity";
+import {CompanyEntity} from "../company/models/company.entity";
 
 @Resolver(() => JobEntity)
 export class JobsResolver {
@@ -21,6 +23,24 @@ export class JobsResolver {
     private readonly userService: UserService,
     private readonly companyService: CompanyService,
   ) {}
+
+  @ResolveField('user', () => UserEntity)
+  async getUser(@Parent() applyJobs: ApplyJobs) {
+    const { user_id } = applyJobs;
+    return await this.userService.getUserById(user_id);
+  }
+
+  @ResolveField('company', () => CompanyEntity)
+  async getCompany(@Parent() applyJobs: ApplyJobs) {
+    const { company_id } = applyJobs;
+    return await this.companyService.getCompanyId(company_id);
+  }
+
+  @ResolveField('jobs', () => [JobEntity])
+  async getJobsRes(@Parent() applyJobs: ApplyJobs) {
+    const { job_id } = applyJobs;
+    return await this.jobService.getJobById(job_id);
+  }
 
   @Query(() => [JobEntity])
   async getJobs(): Promise<any> {
@@ -38,10 +58,10 @@ export class JobsResolver {
     return await this.jobService.getCompanyJobs(company);
   }
 
-  @Query(() => [ApplyJobs])
-  async getApplyJobs() {
-    return await this.jobService.getApplyJobs();
-  }
+  // @Query(() => [ApplyJobs])
+  // async getApplyJobs() {
+  //   return await this.jobService.getApplyJobs();
+  // }
   @Query(() => [ApplyJobs])
   async getApplyJobsByUser(@User() user: IUser) {
     return await this.jobService.getApplyJobsByUser(user);
