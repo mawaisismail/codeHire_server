@@ -14,11 +14,8 @@ export class ChatService {
   ) {}
 
   async sendMessage(message: ChatMessageEntity): Promise<ChatMessageEntity> {
-    const { jobId, content } = message;
-    await this.message.create({
-      jobId: jobId,
-      content: content,
-    });
+    console.log(message,"test")
+    await this.message.create(message);
     await publishMessageSent(message);
     return message;
   }

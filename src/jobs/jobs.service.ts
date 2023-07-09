@@ -35,4 +35,13 @@ export class JobsService {
       ...applyDTO,
     });
   }
+
+  async getApplyJobs() {
+    return await this.applyJobModel.find();
+  }
+
+  async getApplyJobsByUser(user: IUser) {
+    console.log(user.userID)
+    return await this.applyJobModel.find({ user_id: user.userID });
+  }
 }
