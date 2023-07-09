@@ -18,6 +18,10 @@ export class JobsService {
     return this.job.find();
   }
 
+  async getJobById(id: string) {
+    return this.job.findOne({ id });
+  }
+
   async getCompanyJobs(company: IUser) {
     return this.job.find({ companyID: company.userID });
   }
@@ -41,7 +45,6 @@ export class JobsService {
   }
 
   async getApplyJobsByUser(user: IUser) {
-    console.log(user.userID)
     return await this.applyJobModel.find({ user_id: user.userID });
   }
 }

@@ -2,18 +2,19 @@ import { Field, ObjectType } from '@nestjs/graphql';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { CompanyEntity } from '../../company/models/company.entity';
 import { ChatMessageEntity } from '../../chat/models/chat-message.entity';
+import { UserEntity } from '../../user/models/user.entity';
 
 @Schema()
 @ObjectType('Job')
 export class JobEntity {
   @Prop()
-  @Field()
+  @Field({ nullable: true })
   id: string;
   @Prop()
   @Field(() => CompanyEntity, { nullable: true })
   company: CompanyEntity;
   @Prop()
-  @Field()
+  @Field({ nullable: true })
   companyID: string;
   @Prop()
   @Field({ nullable: true })
@@ -25,7 +26,7 @@ export class JobEntity {
   @Field({ nullable: true })
   experience: string;
   @Prop()
-  @Field((returns) => [String], { nullable: true })
+  @Field(() => [String], { nullable: true })
   employmentType: string[];
   @Prop()
   @Field({ nullable: true })
@@ -43,7 +44,7 @@ export class JobEntity {
   @Field({ nullable: true })
   qualification: string;
   @Prop()
-  @Field((returns) => [String], { nullable: true })
+  @Field(() => [String], { nullable: true })
   skills: string[];
   @Prop()
   @Field({ nullable: true })
@@ -61,31 +62,31 @@ export class JobEntity {
 @ObjectType('ApplyJobs')
 export class ApplyJobs {
   @Prop()
-  @Field()
+  @Field({ nullable: true })
   id: string;
   @Prop()
-  @Field()
+  @Field({ nullable: true })
   user_id: string;
   @Prop()
-  @Field()
+  @Field({ nullable: true })
   company_id: string;
   @Prop()
-  @Field()
+  @Field({ nullable: true })
   job_id: string;
   @Prop()
-  @Field()
+  @Field({ nullable: true })
   status: string;
   @Prop()
-  @Field()
+  @Field({ nullable: true })
   name: string;
   @Prop()
-  @Field()
+  @Field({ nullable: true })
   coverLetter: string;
   @Prop()
-  @Field()
+  @Field({ nullable: true })
   message: string;
   @Prop()
-  @Field()
+  @Field({ nullable: true })
   email: string;
 
   @Prop()

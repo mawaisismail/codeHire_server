@@ -20,5 +20,6 @@ import { JwtStrategy } from '../auth/jwt.strategy';
     ]),
   ],
   providers: [CompanyResolver, CompanyService, JwtStrategy],
+  exports: [CompanyService],
 })
 export class CompanyModule {}

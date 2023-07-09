@@ -9,10 +9,12 @@ import {
 import { JobsResolver } from './jobs.resolver';
 import { JobsService } from './jobs.service';
 import { UserModule } from '../user/user.module';
+import { CompanyModule } from '../company/company.module';
 
 @Module({
   imports: [
     UserModule,
+    CompanyModule,
     MongooseModule.forFeature([
       {
         name: JobEntity.name,

@@ -12,18 +12,25 @@ import { UserService } from '../user/user.service';
 import { JobApplyDto, JobInput } from './dto/job.input';
 import { User } from '../common/user.decorator';
 import { IUser } from '../common/interface/user';
-import { ChatMessageEntity } from '../chat/models/chat-message.entity';
+import { CompanyService } from '../company/company.service';
 
 @Resolver(() => JobEntity)
 export class JobsResolver {
   constructor(
     private readonly jobService: JobsService,
     private readonly userService: UserService,
+    private readonly companyService: CompanyService,
   ) {}
 
   @Query(() => [JobEntity])
-  async getJobs() {
+  async getJobs(): Promise<any> {
     return await this.jobService.getJobs();
+  }
+
+  @Query(() => JobEntity)
+  async getJobById(@Args('id') id: string): Promise<any> {
+    console.log(id);
+    return await this.jobService.getJobById(id);
   }
 
   @Query(() => [JobEntity])
@@ -54,8 +61,8 @@ export class JobsResolver {
   }
 
   @ResolveField()
-  async company(@Parent() jobEntity: JobEntity) {
-    const { companyID } = jobEntity;
-    return this.userService.getUserById(companyID, true);
+  async company(@Parent() jobEntity: any) {
+    const id = jobEntity?.companyID || jobEntity?.company_id;
+    return this.companyService.getCompanyId(id);
   }
 }

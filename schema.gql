@@ -94,9 +94,9 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 scalar DateTime
 
 type Job {
-  id: String!
+  id: String
   company: Company
-  companyID: String!
+  companyID: String
   title: String
   coverImg: String
   experience: String
@@ -114,15 +114,15 @@ type Job {
 }
 
 type ApplyJobs {
-  id: String!
-  user_id: String!
-  company_id: String!
-  job_id: String!
-  status: String!
-  name: String!
-  coverLetter: String!
-  message: String!
-  email: String!
+  id: String
+  user_id: String
+  company_id: String
+  job_id: String
+  status: String
+  name: String
+  coverLetter: String
+  message: String
+  email: String
   chatMessages: [ChatMessage!]
   createdAt: String
   updatedAt: String
@@ -133,6 +133,7 @@ type Query {
   getUserById(uid: String!): User!
   getLoginUser(uid: String!): User!
   getJobs: [Job!]!
+  getJobById(id: String!): Job!
   getCompanyJobs: [Job!]!
   getApplyJobs: [ApplyJobs!]!
   getApplyJobsByUser: [ApplyJobs!]!
