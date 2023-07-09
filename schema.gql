@@ -106,7 +106,7 @@ scalar DateTime
 
 type Job {
   id: String
-  company: Company
+  company: Company!
   companyID: String
   title: String
   coverImg: String
@@ -122,6 +122,8 @@ type Job {
   location: String
   createdAt: String
   updatedAt: String
+  user: User!
+  jobs: [Job!]!
 }
 
 type ApplyJobs {
@@ -147,7 +149,6 @@ type Query {
   getJobs: [Job!]!
   getJobById(id: String!): Job!
   getCompanyJobs: [Job!]!
-  getApplyJobs: [ApplyJobs!]!
   getApplyJobsByUser: [ApplyJobs!]!
   getLoginCompany(uid: String!): Company!
   getCompanyById: Company!

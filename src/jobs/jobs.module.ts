@@ -10,6 +10,7 @@ import { JobsResolver } from './jobs.resolver';
 import { JobsService } from './jobs.service';
 import { UserModule } from '../user/user.module';
 import { CompanyModule } from '../company/company.module';
+import { JobsController } from './jobs.controller';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { CompanyModule } from '../company/company.module';
       },
     ]),
   ],
+  controllers:[JobsController],
   providers: [JobsResolver, JobsService],
 })
 export class JobsModule {}

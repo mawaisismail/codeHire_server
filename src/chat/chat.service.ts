@@ -14,7 +14,6 @@ export class ChatService {
   ) {}
 
   async sendMessage(message: ChatMessageEntity): Promise<ChatMessageEntity> {
-    console.log(message,"test")
     await this.message.create(message);
     await publishMessageSent(message);
     return message;
