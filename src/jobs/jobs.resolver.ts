@@ -88,6 +88,14 @@ export class JobsResolver {
   ) {
     return await this.jobService.applyJob(jobApplyDto, user);
   }
+  @Mutation(() => ApplyJobs, { nullable: true })
+  async hireUser(
+    @User() user: IUser,
+    @Args('job_id') job_id: string,
+    @Args('user_id') user_id: string,
+  ) {
+    return await this.jobService.hireUser(job_id, user_id, user);
+  }
 
   @ResolveField()
   async company(@Parent() jobEntity: any) {

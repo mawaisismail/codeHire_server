@@ -7,18 +7,24 @@ export class JobInput {
 }
 @InputType()
 export class JobApplyDto {
-  @Field()
+  @Field({ nullable: true })
   company_id: string;
   @Field()
   job_id: string;
-  @Field()
+  @Field({ nullable: true })
   user_id: string;
-  @Field()
+  @Field({ nullable: true })
   name: string;
-  @Field()
+  @Field({ nullable: true })
   coverLetter: string;
-  @Field()
+  @Field({ nullable: true })
   message: string;
-  @Field()
+  @Field({ nullable: true })
   email: string;
+}
+
+@InputType()
+export class ApplyJobArgs {
+  @Field()
+  applyJob: string;
 }

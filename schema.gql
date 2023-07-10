@@ -175,6 +175,7 @@ type Mutation {
   createJob(jobInput: JobInput!): Job
   updateJob(jobInput: JobInput!): Job
   applyJob(jobApplyDto: JobApplyDto!): ApplyJobs
+  hireUser(job_id: String!, user_id: String!): ApplyJobs
   createCompany(createCompanyArgs: CreateCompanyArgs!): Company!
   updateCompany(createCompanyArgs: CreateCompanyArgs!): Company!
   messageSend(jobId: String!, content: String!, senderId: String!): ChatMessage!
@@ -191,13 +192,13 @@ input JobInput {
 }
 
 input JobApplyDto {
-  company_id: String!
+  company_id: String
   job_id: String!
-  user_id: String!
-  name: String!
-  coverLetter: String!
-  message: String!
-  email: String!
+  user_id: String
+  name: String
+  coverLetter: String
+  message: String
+  email: String
 }
 
 input CreateCompanyArgs {

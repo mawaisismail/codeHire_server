@@ -5,12 +5,20 @@ import { JobsService } from './jobs.service';
 export class JobsController {
   constructor(private readonly jobService: JobsService) {}
   @Get('/:id')
-  getAllCompanies(@Param('id') id: string) {
+  getUserApplyJobs(@Param('id') id: string) {
     return this.jobService.getApplyJobs(id);
   }
 
-  @Get('/applyCompany/:id')
-  getCompanyApplyUsers(@Param('id') id: string) {
-    return this.jobService.getCompanyApplyUsers(id);
+  @Get('/company/:id')
+  async getCompanyApplyUsers(@Param('id') id: string) {
+    return await this.jobService.getCompanyApplyUsers(id);
+  }
+  @Get('/company/request/:id')
+  async getCompanyRequest(@Param('id') id: string) {
+    return await this.jobService.getCompanyOffers(id);
+  }
+  @Get('request/:id')
+  async getUserRequest(@Param('id') id: string) {
+    return await this.jobService.getUserJobOffer(id);
   }
 }
