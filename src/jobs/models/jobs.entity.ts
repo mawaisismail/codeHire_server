@@ -87,8 +87,16 @@ export class ApplyJobs {
   message: string;
   @Prop()
   @Field({ nullable: true })
+  apply_by_user: boolean;
+  @Prop()
+  @Field({ nullable: true })
+  hire_by_company: boolean;
+  @Prop()
+  @Field({ nullable: true })
+  matched: boolean;
+  @Prop()
+  @Field({ nullable: true })
   email: string;
-
   @Prop()
   @Field(() => [ChatMessageEntity], { nullable: true })
   chatMessages?: ChatMessageEntity[];

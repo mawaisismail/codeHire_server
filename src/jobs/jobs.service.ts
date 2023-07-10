@@ -1,10 +1,11 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { ApplyJobs, JobEntity } from './models/jobs.entity';
-import mongoose, { Model } from 'mongoose';
+import { Model } from 'mongoose';
 import { JobApplyDto, JobInput } from './dto/job.input';
 import { IUser } from '../common/interface/user';
 import { v4 as uuidv4 } from 'uuid';
+import { UserType } from '../user/interfaces/tokenPayload';
 
 @Injectable()
 export class JobsService {
@@ -36,7 +37,7 @@ export class JobsService {
 
   async updateJob(jobInput: JobInput, user: IUser) {
     try {
-      const job: JobEntity = JSON.parse(jobInput.jobInfo);
+      const job = JSON.parse(jobInput.jobInfo);
       const getJob = await this.getJobById(job.id);
       if (!getJob) {
         throw new NotFoundException('Job not found');
@@ -55,11 +56,52 @@ export class JobsService {
       throw new NotFoundException('Something went wrong');
     }
   }
-  async applyJob(applyDTO: JobApplyDto) {
-    return await this.applyJobModel.create({
-      id: uuidv4(),
-      ...applyDTO,
-    });
+  async applyJob(applyDTO: JobApplyDto, user: IUser) {
+    try {
+      const job = await this.getJobById(applyDTO.job_id);
+      if (!job) {
+        throw new NotFoundException('Job not found');
+      }
+      const object =
+        user.usertype === 'USER'
+          ? { user_id: applyDTO.user_id }
+          : { company_id: applyDTO.company_id };
+      const getApply = await this.applyJobModel.findOne({
+        job_id: applyDTO.job_id,
+        ...object,
+      });
+      if (user.usertype === 'USER' && getApply?.apply_by_user) {
+        throw new NotFoundException('User Have Already Applied');
+      }
+      if (user.usertype === 'COMPANY' && getApply?.hire_by_company) {
+        throw new NotFoundException('Company Have Already Hired');
+      }
+      if (getApply) {
+        user.usertype === UserType.USER
+          ? (getApply.apply_by_user = true)
+          : (getApply.hire_by_company = true);
+        if (getApply.hire_by_company && getApply.apply_by_user) {
+          getApply.matched = true;
+        }
+        return await this.applyJobModel.update(
+          { id: getApply.id },
+          {
+            ...getApply,
+          },
+        );
+      }
+      const apply =
+        user.usertype === UserType.USER
+          ? { apply_by_user: true }
+          : { hire_by_company: true };
+      return await this.applyJobModel.create({
+        ...apply,
+        id: uuidv4(),
+        ...applyDTO,
+      });
+    } catch (err) {
+      throw new NotFoundException(err.message);
+    }
   }
 
   async getFilterJobs(search: any) {
@@ -234,7 +276,6 @@ export class JobsService {
   }
 
   async getApplyJobsByUser(user: IUser) {
-    console.log(user);
     const applyJobs = await this.applyJobModel
       .find({ user_id: user.userID })
       .exec();

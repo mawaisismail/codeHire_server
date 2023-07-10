@@ -86,7 +86,7 @@ export class JobsResolver {
     @User() user: IUser,
     @Args('jobApplyDto') jobApplyDto: JobApplyDto,
   ) {
-    return await this.jobService.applyJob(jobApplyDto);
+    return await this.jobService.applyJob(jobApplyDto, user);
   }
 
   @ResolveField()

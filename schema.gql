@@ -135,6 +135,9 @@ type ApplyJobs {
   name: String
   coverLetter: String
   message: String
+  apply_by_user: Boolean
+  hire_by_company: Boolean
+  matched: Boolean
   email: String
   chatMessages: [ChatMessage!]
   createdAt: String
