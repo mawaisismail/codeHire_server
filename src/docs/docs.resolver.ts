@@ -9,7 +9,7 @@ import { DocsEntity } from './model/docs.entity';
 export class DocsResolver {
   constructor(private docsService: DocsService) {}
 
-  @Query(() => [DocsEntity])
+  @Query(() => [DocsEntity]) // <-- change this
   async getDocs(@User() user: IUser): Promise<any> {
     console.log(user);
     return await this.docsService.getDocsById(user.userID);

@@ -1,5 +1,6 @@
 import { Field, ObjectType } from '@nestjs/graphql';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { ChatMessageEntity } from '../../chat/models/chat-message.entity';
 @ObjectType()
 export class desireType {
   @Field(() => [String], { nullable: true })
@@ -142,6 +143,47 @@ export class UserEntity {
   languages: string[];
   @Field({ nullable: true })
   token: string;
+}
+
+@Schema()
+@ObjectType('SaveUsers')
+export class SaveUsers {
+  @Prop()
+  @Field({ nullable: true })
+  id: string;
+  @Prop()
+  @Field({ nullable: true })
+  user_id: string;
+  @Prop()
+  @Field({ nullable: true })
+  company_id: string;
+  @Prop()
+  @Field({ nullable: true })
+  job_id: string;
+  @Prop()
+  @Field({ nullable: true })
+  status: string;
+  @Prop()
+  @Field({ nullable: true })
+  name: string;
+  @Prop()
+  @Field({ nullable: true })
+  coverLetter: string;
+  @Prop()
+  @Field({ nullable: true })
+  message: string;
+  @Prop()
+  @Field({ nullable: true })
+  email: string;
+
+  @Prop()
+  @Field(() => [ChatMessageEntity], { nullable: true })
+  chatMessages?: ChatMessageEntity[];
+
+  @Field({ nullable: true })
+  createdAt: string;
+  @Field({ nullable: true })
+  updatedAt: string;
 }
 
 export const UserSchema = SchemaFactory.createForClass(UserEntity);

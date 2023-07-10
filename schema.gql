@@ -2,6 +2,18 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type ChatMessage {
+  jobId: String!
+  content: String
+  senderId: String
+  createdAt: DateTime
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
 type desireType {
   desiredOccupation: [String!]
   firstChoiceOfWork: String
@@ -92,18 +104,6 @@ type Company {
   workingHours: workingHoursType
 }
 
-type ChatMessage {
-  jobId: String!
-  content: String
-  senderId: String
-  createdAt: DateTime
-}
-
-"""
-A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
-"""
-scalar DateTime
-
 type Job {
   id: String
   company: Company!
@@ -149,6 +149,7 @@ type docs {
 
 type Query {
   getUser: User!
+  userSearch(search: String!): [User!]!
   getAllUsers: [User!]!
   getUserById(uid: String!): User!
   getLoginUser(uid: String!): User!

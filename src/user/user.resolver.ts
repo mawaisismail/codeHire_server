@@ -33,6 +33,12 @@ export class UserResolver {
 
   @UseGuards(GqlAuthGuard)
   @Query(() => [UserEntity])
+  async userSearch(@Args('search') search: string) {
+    return await this.userService.getFilterUser(search);
+  }
+
+  @UseGuards(GqlAuthGuard)
+  @Query(() => [UserEntity])
   async getAllUsers() {
     return await this.userService.getAllUsers();
   }

@@ -28,6 +28,65 @@ export class UserService {
     }
   }
 
+  async getFilterUser(search: any) {
+    try {
+      const {
+        about,
+        education,
+        currentOccupation,
+        annualSalary,
+        skills,
+        firstChoiceOfWork,
+      } = JSON.parse(search);
+      const query: any = {};
+      // Add filters based on user input
+      if (about) {
+        query.about = { $regex: new RegExp(about, 'i') }; // Case-insensitive regex match for 'about' field
+      }
+
+      if (education) {
+        query['education.name'] = { $regex: new RegExp(education, 'i') }; // Case-insensitive regex match for 'education' field
+      }
+
+      if (currentOccupation) {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        query.currentOccupation = {
+          $regex: new RegExp(currentOccupation, 'i'),
+        }; // Case-insensitive regex match for 'currentOccupation' field
+      }
+
+      if (annualSalary) {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        query['desire.annualSalary'] = {
+          $regex: new RegExp(annualSalary, 'i'),
+        }; // Case-insensitive regex match for 'currentOccupation' field
+      }
+
+      if (skills) {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        query['skills'] = {
+          $regex: new RegExp(skills, 'i'),
+        }; // Case-insensitive regex match for 'currentOccupation' field
+      }
+
+      if (firstChoiceOfWork) {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        query['desire.firstChoiceOfWork'] = {
+          $regex: new RegExp(firstChoiceOfWork, 'i'),
+        }; // Case-insensitive regex match for 'currentOccupation' field
+      }
+
+      return await this.user.find(query);
+      throw new NotFoundException('User Does Not Exist');
+    } catch (e) {
+      throw new NotFoundException(e.message);
+    }
+  }
+
   async getAllUsers() {
     try {
       return await this.user.find();
