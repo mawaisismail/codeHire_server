@@ -17,6 +17,14 @@ export class JobsController {
   async getCompanyRequest(@Param('id') id: string) {
     return await this.jobService.getCompanyOffers(id);
   }
+  @Get('/company/hired/:id')
+  async getHiredUser(@Param('id') id: string) {
+    return await this.jobService.getCompanyHired(id);
+  }
+  @Get('/hired/:id')
+  async getHiredJobs(@Param('id') id: string) {
+    return await this.jobService.getUserHiredjobs(id);
+  }
   @Get('request/:id')
   async getUserRequest(@Param('id') id: string) {
     return await this.jobService.getUserJobOffer(id);

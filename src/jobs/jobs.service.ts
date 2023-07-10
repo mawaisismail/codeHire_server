@@ -64,6 +64,7 @@ export class JobsService {
       }
       const getApply = await this.applyJobModel.findOne({
         job_id: applyDTO.job_id,
+        user_id: user.userID,
       });
       if (user.usertype === 'USER' && getApply?.apply_by_user) {
         throw new NotFoundException('User Have Already Applied');
@@ -79,10 +80,12 @@ export class JobsService {
           ? (getApply.matched = true)
           : (getApply.matched = false);
 
-        return await this.applyJobModel.update(
+        return await this.applyJobModel.updateOne(
           { id: getApply.id },
           {
-            ...getApply,
+            ...applyDTO,
+            matched: true,
+            apply_by_user: true,
           },
         );
       }
@@ -103,7 +106,6 @@ export class JobsService {
 
   async hireUser(job_id: string, user_id: string, user: IUser) {
     try {
-      console.log(job_id, user_id, user.userID);
       const job = await this.getJobById(job_id);
       if (!job) {
         throw new NotFoundException('Job not found');
@@ -119,9 +121,9 @@ export class JobsService {
       if (user.usertype === 'COMPANY' && getApply?.hire_by_company) {
         throw new NotFoundException('Company Have Already Hired');
       }
-      let data;
+
       if (getApply?.id) {
-        data = await this.applyJobModel.updateOne(
+        return await this.applyJobModel.updateOne(
           {
             id: getApply.id,
             company_id: user.userID,
@@ -133,10 +135,12 @@ export class JobsService {
           },
         );
       }
-      console.log(data);
-      return data;
+
       return await this.applyJobModel.create({
         id: uuidv4(),
+        user_id: user_id,
+        company_id: user.userID,
+        job_id: job_id,
         hire_by_company: true,
         matched: false,
       });
@@ -385,6 +389,120 @@ export class JobsService {
           user_id: id,
           hire_by_company: true,
           matched: false,
+        },
+      },
+      {
+        $lookup: {
+          from: 'userentities',
+          localField: 'user_id',
+          foreignField: 'uid',
+          as: 'user',
+        },
+      },
+      {
+        $lookup: {
+          from: 'companyentities',
+          localField: 'company_id',
+          foreignField: 'uid',
+          as: 'company',
+        },
+      },
+      {
+        $lookup: {
+          from: 'jobentities',
+          localField: 'job_id',
+          foreignField: 'id',
+          as: 'job',
+        },
+      },
+      {
+        $addFields: {
+          user: {
+            $arrayElemAt: ['$user', 0],
+          },
+        },
+      },
+      {
+        $addFields: {
+          company: {
+            $arrayElemAt: ['$company', 0],
+          },
+        },
+      },
+      {
+        $addFields: {
+          job: {
+            $arrayElemAt: ['$job', 0],
+          },
+        },
+      },
+    ];
+    return this.applyJobModel.aggregate(query);
+  }
+
+  async getCompanyHired(id: string) {
+    const query = [
+      {
+        $match: {
+          company_id: id,
+          matched: true,
+        },
+      },
+      {
+        $lookup: {
+          from: 'userentities',
+          localField: 'user_id',
+          foreignField: 'uid',
+          as: 'user',
+        },
+      },
+      {
+        $lookup: {
+          from: 'companyentities',
+          localField: 'company_id',
+          foreignField: 'uid',
+          as: 'company',
+        },
+      },
+      {
+        $lookup: {
+          from: 'jobentities',
+          localField: 'job_id',
+          foreignField: 'id',
+          as: 'job',
+        },
+      },
+      {
+        $addFields: {
+          user: {
+            $arrayElemAt: ['$user', 0],
+          },
+        },
+      },
+      {
+        $addFields: {
+          company: {
+            $arrayElemAt: ['$company', 0],
+          },
+        },
+      },
+      {
+        $addFields: {
+          job: {
+            $arrayElemAt: ['$job', 0],
+          },
+        },
+      },
+    ];
+    return this.applyJobModel.aggregate(query);
+  }
+
+  async getUserHiredjobs(id: string) {
+    const query = [
+      {
+        $match: {
+          user_id: id,
+          matched: true,
         },
       },
       {
