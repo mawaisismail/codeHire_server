@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { ApplyJobs, JobEntity } from './models/jobs.entity';
 import mongoose, { Model } from 'mongoose';
@@ -38,6 +38,66 @@ export class JobsService {
       id: uuidv4(),
       ...applyDTO,
     });
+  }
+
+  async getFilterJobs(search: any) {
+    try {
+      const {
+        description,
+        responsibilities,
+        offer_salary,
+        position,
+        skills,
+        title,
+      } = JSON.parse(search);
+      const query: any = {};
+      // Add filters based on user input
+      if (description) {
+        query.description = { $regex: new RegExp(description, 'i') }; // Case-insensitive regex match for 'about' field
+      }
+
+      if (responsibilities) {
+        query['responsibilities'] = {
+          $regex: new RegExp(responsibilities, 'i'),
+        }; // Case-insensitive regex match for 'education' field
+      }
+
+      if (offer_salary) {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        query.offer_salary = {
+          $regex: new RegExp(offer_salary, 'i'),
+        }; // Case-insensitive regex match for 'currentOccupation' field
+      }
+
+      if (position) {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        query['position'] = {
+          $regex: new RegExp(position, 'i'),
+        }; // Case-insensitive regex match for 'currentOccupation' field
+      }
+
+      if (skills) {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        query['skills'] = {
+          $regex: new RegExp(skills, 'i'),
+        }; // Case-insensitive regex match for 'currentOccupation' field
+      }
+
+      if (title) {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        query['title'] = {
+          $regex: new RegExp(title, 'i'),
+        }; // Case-insensitive regex match for 'currentOccupation' field
+      }
+
+      return await this.job.find(query);
+    } catch (e) {
+      throw new NotFoundException(e.message);
+    }
   }
 
   async getApplyJobs(id: string) {

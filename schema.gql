@@ -154,6 +154,7 @@ type Query {
   getUserById(uid: String!): User!
   getLoginUser(uid: String!): User!
   getJobs: [Job!]!
+  getFilterJobs(search: String!): [Job!]!
   getJobById(id: String!): Job!
   getCompanyJobs: [Job!]!
   getApplyJobsByUser: [ApplyJobs!]!

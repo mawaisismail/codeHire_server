@@ -13,8 +13,8 @@ import { JobApplyDto, JobInput } from './dto/job.input';
 import { User } from '../common/user.decorator';
 import { IUser } from '../common/interface/user';
 import { CompanyService } from '../company/company.service';
-import {UserEntity} from "../user/models/user.entity";
-import {CompanyEntity} from "../company/models/company.entity";
+import { UserEntity } from '../user/models/user.entity';
+import { CompanyEntity } from '../company/models/company.entity';
 
 @Resolver(() => JobEntity)
 export class JobsResolver {
@@ -45,6 +45,10 @@ export class JobsResolver {
   @Query(() => [JobEntity])
   async getJobs(): Promise<any> {
     return await this.jobService.getJobs();
+  }
+  @Query(() => [JobEntity])
+  async getFilterJobs(@Args('search') search: string): Promise<any> {
+    return await this.jobService.getFilterJobs(search);
   }
 
   @Query(() => JobEntity)
