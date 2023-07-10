@@ -2,7 +2,12 @@ import { Module } from '@nestjs/common';
 import { UserService } from './user.service';
 import { UserResolver } from './user.resolver';
 import { MongooseModule } from '@nestjs/mongoose';
-import { UserSchema, UserEntity } from './models/user.entity';
+import {
+  UserSchema,
+  UserEntity,
+  SaveUserEntity,
+  SaveUserSchema,
+} from './models/user.entity';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from '../auth/jwt.strategy';
 @Module({
@@ -15,6 +20,10 @@ import { JwtStrategy } from '../auth/jwt.strategy';
       {
         name: UserEntity.name,
         schema: UserSchema,
+      },
+      {
+        name: SaveUserEntity.name,
+        schema: SaveUserSchema,
       },
     ]),
   ],

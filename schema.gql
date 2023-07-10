@@ -71,6 +71,12 @@ type User {
   token: String
 }
 
+type saveuser {
+  id: String
+  user_id: String
+  uid: String
+}
+
 type SuccessType {
   success: String!
 }
@@ -154,6 +160,7 @@ type Query {
   getUser: User!
   userSearch(search: String!): [User!]!
   getAllUsers: [User!]!
+  getAllSaveUsers: [User!]!
   getUserById(uid: String!): User!
   getLoginUser(uid: String!): User!
   getJobs: [Job!]!
@@ -172,6 +179,7 @@ type Query {
 type Mutation {
   createUser(userInputType: UserInputType!): User!
   updateUser(userInputType: UserInputType!): User!
+  saveUser(id: String!): [saveuser!]!
   deleteUser(id: String!): SuccessType
   createJob(jobInput: JobInput!): Job
   updateJob(jobInput: JobInput!): Job

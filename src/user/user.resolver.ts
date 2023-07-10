@@ -1,5 +1,5 @@
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
-import { UserEntity } from './models/user.entity';
+import { SaveUserEntity, UserEntity } from './models/user.entity';
 import { UserService } from './user.service';
 import { UserInputType } from './dto/user.args';
 import { SuccessType } from '../common/types/successType';
@@ -41,6 +41,18 @@ export class UserResolver {
   @Query(() => [UserEntity])
   async getAllUsers() {
     return await this.userService.getAllUsers();
+  }
+
+  @UseGuards(GqlAuthGuard)
+  @Query(() => [UserEntity])
+  async getAllSaveUsers(@User() user: IUser) {
+    return await this.userService.getAllSaveUser(user);
+  }
+
+  @UseGuards(GqlAuthGuard)
+  @Mutation(() => [SaveUserEntity])
+  async saveUser(@Args('id') id: string, @User() user: IUser) {
+    return await this.userService.saveUsers(id, user);
   }
 
   @UseGuards(GqlAuthGuard)

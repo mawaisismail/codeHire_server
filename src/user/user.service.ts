@@ -5,15 +5,18 @@ import {
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { UserEntity } from './models/user.entity';
+import { SaveUserEntity, UserEntity } from './models/user.entity';
 import { JwtService } from '@nestjs/jwt';
 import { ITokenPayload, UserType } from './interfaces/tokenPayload';
 import { IUser } from '../common/interface/user';
+import { v4 as uuidv4 } from 'uuid';
 
 @Injectable()
 export class UserService {
   constructor(
     @InjectModel(UserEntity.name) private readonly user: Model<UserEntity>,
+    @InjectModel(SaveUserEntity.name)
+    private readonly save_users: Model<SaveUserEntity>,
     private jwtService: JwtService,
   ) {}
 
@@ -90,6 +93,33 @@ export class UserService {
   async getAllUsers() {
     try {
       return await this.user.find();
+    } catch (e) {
+      throw new NotFoundException(e.message);
+    }
+  }
+  async saveUsers(id: string, user: IUser) {
+    try {
+      return await this.save_users.create({
+        id: uuidv4(),
+        user_id: id,
+        uid: user.userID,
+      });
+    } catch (e) {
+      throw new NotFoundException(e.message);
+    }
+  }
+
+  async getAllSaveUser(user: IUser) {
+    try {
+      const saveUser = await this.save_users.find({
+        uid: user.userID,
+      });
+      if (saveUser.length === 0) {
+        return [];
+      }
+      return await this.save_users.find({
+        uid: { $in: saveUser.map((item) => item.uid) },
+      });
     } catch (e) {
       throw new NotFoundException(e.message);
     }

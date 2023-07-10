@@ -186,4 +186,19 @@ export class SaveUsers {
   updatedAt: string;
 }
 
+@Schema()
+@ObjectType('saveuser')
+export class SaveUserEntity {
+  @Prop()
+  @Field({ nullable: true })
+  id: string;
+  @Prop()
+  @Field({ nullable: true })
+  user_id: string;
+  @Prop()
+  @Field({ nullable: true })
+  uid: string;
+}
+
 export const UserSchema = SchemaFactory.createForClass(UserEntity);
+export const SaveUserSchema = SchemaFactory.createForClass(SaveUserEntity);
