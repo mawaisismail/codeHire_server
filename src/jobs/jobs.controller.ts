@@ -29,4 +29,12 @@ export class JobsController {
   async getUserRequest(@Param('id') id: string) {
     return await this.jobService.getUserJobOffer(id);
   }
+  @Get('user/chat/:id')
+  async getUserChatList(@Param('id') id: string) {
+    return await this.jobService.getUserChatList(id);
+  }
+  @Get('company/chat/:id')
+  async getCompanyChatList(@Param('id') id: string) {
+    return await this.jobService.getCompanyChatList(id);
+  }
 }

@@ -554,6 +554,120 @@ export class JobsService {
     return this.applyJobModel.aggregate(query);
   }
 
+  async getCompanyChatList(id: string) {
+    const query = [
+      {
+        $match: {
+          company_id: id,
+          matched: true,
+        },
+      },
+      {
+        $lookup: {
+          from: 'userentities',
+          localField: 'user_id',
+          foreignField: 'uid',
+          as: 'user',
+        },
+      },
+      {
+        $lookup: {
+          from: 'companyentities',
+          localField: 'company_id',
+          foreignField: 'uid',
+          as: 'company',
+        },
+      },
+      {
+        $lookup: {
+          from: 'jobentities',
+          localField: 'job_id',
+          foreignField: 'id',
+          as: 'job',
+        },
+      },
+      {
+        $addFields: {
+          user: {
+            $arrayElemAt: ['$user', 0],
+          },
+        },
+      },
+      {
+        $addFields: {
+          company: {
+            $arrayElemAt: ['$company', 0],
+          },
+        },
+      },
+      {
+        $addFields: {
+          job: {
+            $arrayElemAt: ['$job', 0],
+          },
+        },
+      },
+    ];
+    return this.applyJobModel.aggregate(query);
+  }
+
+  async getUserChatList(id: string) {
+    const query = [
+      {
+        $match: {
+          user_id: id,
+          matched: true,
+        },
+      },
+      {
+        $lookup: {
+          from: 'userentities',
+          localField: 'user_id',
+          foreignField: 'uid',
+          as: 'user',
+        },
+      },
+      {
+        $lookup: {
+          from: 'companyentities',
+          localField: 'company_id',
+          foreignField: 'uid',
+          as: 'company',
+        },
+      },
+      {
+        $lookup: {
+          from: 'jobentities',
+          localField: 'job_id',
+          foreignField: 'id',
+          as: 'job',
+        },
+      },
+      {
+        $addFields: {
+          user: {
+            $arrayElemAt: ['$user', 0],
+          },
+        },
+      },
+      {
+        $addFields: {
+          company: {
+            $arrayElemAt: ['$company', 0],
+          },
+        },
+      },
+      {
+        $addFields: {
+          job: {
+            $arrayElemAt: ['$job', 0],
+          },
+        },
+      },
+    ];
+    return this.applyJobModel.aggregate(query);
+  }
+
   async getApplyJobsByUser(user: IUser) {
     const applyJobs = await this.applyJobModel
       .find({ user_id: user.userID })
