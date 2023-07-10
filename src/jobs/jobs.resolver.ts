@@ -71,6 +71,11 @@ export class JobsResolver {
     return await this.jobService.getApplyJobsByUser(user);
   }
 
+  @Query(() => [JobEntity])
+  async getRecommendedJobs(@User() user: IUser) {
+    return await this.jobService.getRecommendedJobs(user);
+  }
+
   @Mutation(() => JobEntity, { nullable: true })
   async createJob(@User() user: IUser, @Args('jobInput') jobInput: JobInput) {
     return await this.jobService.createJob(jobInput, user);

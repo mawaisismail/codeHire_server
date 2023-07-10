@@ -161,6 +161,7 @@ type Query {
   getJobById(id: String!): Job!
   getCompanyJobs: [Job!]!
   getApplyJobsByUser: [ApplyJobs!]!
+  getRecommendedJobs: [Job!]!
   getLoginCompany(uid: String!): Company!
   getCompanyById: Company!
   getCompany: Company!

@@ -6,6 +6,7 @@ import { JobApplyDto, JobInput } from './dto/job.input';
 import { IUser } from '../common/interface/user';
 import { v4 as uuidv4 } from 'uuid';
 import { UserType } from '../user/interfaces/tokenPayload';
+import { UserService } from '../user/user.service';
 
 @Injectable()
 export class JobsService {
@@ -13,6 +14,7 @@ export class JobsService {
     @InjectModel(JobEntity.name) private readonly job: Model<JobEntity>,
     @InjectModel(ApplyJobs.name)
     private readonly applyJobModel: Model<ApplyJobs>,
+    private readonly userService: UserService,
   ) {}
 
   async getJobs() {
@@ -21,6 +23,20 @@ export class JobsService {
 
   async getJobById(id: string) {
     return this.job.findOne({ id });
+  }
+
+  async getRecommendedJobs(user: IUser) {
+    try {
+      const userData = await this.userService.getUserById(user.userID);
+      if (!userData) {
+        throw new NotFoundException('User not found');
+      }
+      return this.job.find({
+        skills: { $in: userData.desire.desiredOccupation },
+      });
+    } catch (err) {
+      throw new NotFoundException('Something went wrong');
+    }
   }
 
   async getCompanyJobs(company: IUser) {
