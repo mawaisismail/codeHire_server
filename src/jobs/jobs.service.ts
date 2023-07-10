@@ -32,7 +32,7 @@ export class JobsService {
         throw new NotFoundException('User not found');
       }
       return this.job.find({
-        skills: { $in: userData.desire.desiredOccupation },
+        skills: { $in: userData.skills },
       });
     } catch (err) {
       throw new NotFoundException('Something went wrong');
