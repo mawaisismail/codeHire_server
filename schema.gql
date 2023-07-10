@@ -170,6 +170,7 @@ type Mutation {
   updateUser(userInputType: UserInputType!): User!
   deleteUser(id: String!): SuccessType
   createJob(jobInput: JobInput!): Job
+  updateJob(jobInput: JobInput!): Job
   applyJob(jobApplyDto: JobApplyDto!): ApplyJobs
   createCompany(createCompanyArgs: CreateCompanyArgs!): Company!
   updateCompany(createCompanyArgs: CreateCompanyArgs!): Company!

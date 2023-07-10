@@ -33,6 +33,28 @@ export class JobsService {
       id: uuidv4(),
     });
   }
+
+  async updateJob(jobInput: JobInput, user: IUser) {
+    try {
+      const job: JobEntity = JSON.parse(jobInput.jobInfo);
+      const getJob = await this.getJobById(job.id);
+      if (!getJob) {
+        throw new NotFoundException('Job not found');
+      }
+      // if (job.companyID !== user.userID) {
+      //   console.log(job.companyID, user.userID);
+      //   throw new NotFoundException('Something went wrong');
+      // }
+      return await this.job.update(
+        { id: job.id },
+        {
+          ...job,
+        },
+      );
+    } catch (err) {
+      throw new NotFoundException('Something went wrong');
+    }
+  }
   async applyJob(applyDTO: JobApplyDto) {
     return await this.applyJobModel.create({
       id: uuidv4(),
