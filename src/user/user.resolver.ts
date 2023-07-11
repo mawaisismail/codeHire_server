@@ -50,7 +50,7 @@ export class UserResolver {
   }
 
   @UseGuards(GqlAuthGuard)
-  @Mutation(() => [SaveUserEntity])
+  @Mutation(() => SaveUserEntity)
   async saveUser(@Args('id') id: string, @User() user: IUser) {
     return await this.userService.saveUsers(id, user);
   }

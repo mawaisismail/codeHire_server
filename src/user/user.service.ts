@@ -99,6 +99,13 @@ export class UserService {
   }
   async saveUsers(id: string, user: IUser) {
     try {
+      const isSaveed = await this.save_users.find({
+        uid: user.userID,
+        user_id: id,
+      });
+      if (isSaveed) {
+        throw new UnprocessableEntityException('Already Saved');
+      }
       return await this.save_users.create({
         id: uuidv4(),
         user_id: id,
@@ -114,12 +121,19 @@ export class UserService {
       const saveUser = await this.save_users.find({
         uid: user.userID,
       });
+      console.log(saveUser.map((item) => item.user_id));
       if (saveUser.length === 0) {
         return [];
       }
-      return await this.save_users.find({
-        uid: { $in: saveUser.map((item) => item.uid) },
-      });
+      const ids = saveUser.map((item) => item.user_id);
+      const saveUserData = await this.user.aggregate([
+        {
+          $match: {
+            uid: { $in: ids },
+          },
+        },
+      ]);
+      return saveUserData;
     } catch (e) {
       throw new NotFoundException(e.message);
     }

@@ -179,7 +179,7 @@ type Query {
 type Mutation {
   createUser(userInputType: UserInputType!): User!
   updateUser(userInputType: UserInputType!): User!
-  saveUser(id: String!): [saveuser!]!
+  saveUser(id: String!): saveuser!
   deleteUser(id: String!): SuccessType
   createJob(jobInput: JobInput!): Job
   updateJob(jobInput: JobInput!): Job
