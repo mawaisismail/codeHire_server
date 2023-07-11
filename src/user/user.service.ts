@@ -116,6 +116,24 @@ export class UserService {
     }
   }
 
+  async cancelSaveUsers(id: string, user: IUser) {
+    try {
+      const isSaveed = await this.save_users.find({
+        uid: user.userID,
+        user_id: id,
+      });
+      if (isSaveed) {
+        return await this.save_users.deleteOne({
+          user_id: id,
+          uid: user.userID,
+        });
+      }
+      throw new UnprocessableEntityException('Already Saved');
+    } catch (e) {
+      throw new NotFoundException(e.message);
+    }
+  }
+
   async getAllSaveUser(user: IUser) {
     try {
       const saveUser = await this.save_users.find({

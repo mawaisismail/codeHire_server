@@ -56,6 +56,12 @@ export class UserResolver {
   }
 
   @UseGuards(GqlAuthGuard)
+  @Mutation(() => SaveUserEntity)
+  async cancelSaveUser(@Args('id') id: string, @User() user: IUser) {
+    return await this.userService.cancelSaveUsers(id, user);
+  }
+
+  @UseGuards(GqlAuthGuard)
   @Query(() => UserEntity)
   async getUserById(@Args('uid') uid: string) {
     return await this.userService.getUserById(uid);
