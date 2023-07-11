@@ -102,6 +102,11 @@ export class JobsResolver {
     return await this.jobService.hireUser(job_id, user_id, user);
   }
 
+  @Mutation(() => ApplyJobs, { nullable: true })
+  async cancelHired(@Args('id') id: string) {
+    return await this.jobService.cancledHired(id);
+  }
+
   @ResolveField()
   async company(@Parent() jobEntity: any) {
     const id = jobEntity?.companyID || jobEntity?.company_id;

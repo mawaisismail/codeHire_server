@@ -25,6 +25,10 @@ export class JobsService {
     return this.job.findOne({ id });
   }
 
+  async cancledHired(id: string) {
+    return this.applyJobModel.deleteOne({ id });
+  }
+
   async getRecommendedJobs(user: IUser) {
     try {
       const userData = await this.userService.getUserById(user.userID);
